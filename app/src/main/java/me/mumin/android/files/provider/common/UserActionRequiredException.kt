@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2023 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.common
 
 import android.content.Context

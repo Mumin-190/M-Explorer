@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.ftp.client
 
 import java8.nio.file.Path as Java8Path

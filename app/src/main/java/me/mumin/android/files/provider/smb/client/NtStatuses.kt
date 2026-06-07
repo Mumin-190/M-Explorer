@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.smb.client
 
 // @see https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55

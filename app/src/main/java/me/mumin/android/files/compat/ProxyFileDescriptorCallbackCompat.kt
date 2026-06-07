@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2019 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.compat
 
 import android.os.Build

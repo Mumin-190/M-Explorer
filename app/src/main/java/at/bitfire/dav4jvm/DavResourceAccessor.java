@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package at.bitfire.dav4jvm;
 
 import java.io.IOException;

@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.webdav.client
 
 import java8.nio.file.Path as Java8Path

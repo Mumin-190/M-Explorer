@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.archive
 
 import java8.nio.file.Path

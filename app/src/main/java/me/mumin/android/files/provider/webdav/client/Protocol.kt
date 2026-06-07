@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.webdav.client
 
 enum class Protocol(val scheme: String, val httpScheme: String, val defaultPort: Int) {

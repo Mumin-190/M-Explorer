@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020 Mumin <mumin@example.com>
- * All Rights flagserved.
- */
-
 package me.mumin.android.files.provider.common
 
 import android.os.ParcelFileDescriptor

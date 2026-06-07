@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.hiddenapi
 
 import android.os.Build

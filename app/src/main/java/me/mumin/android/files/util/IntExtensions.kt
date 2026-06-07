@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2020 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.util
 
 fun Int.hasBits(bits: Int): Boolean = this and bits == bits

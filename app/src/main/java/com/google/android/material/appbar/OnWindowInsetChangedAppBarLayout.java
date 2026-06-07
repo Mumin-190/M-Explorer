@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package com.google.android.material.appbar;
 
 import android.content.Context;

@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2021 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package net.schmizz.sshj.sftp;
 
 import net.schmizz.concurrent.Promise;

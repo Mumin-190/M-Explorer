@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2026 Mumin-190
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.filelist
 
 import android.content.Context

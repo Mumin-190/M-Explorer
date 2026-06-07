@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2018 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.provider.linux
 
 import java8.nio.file.DirectoryIteratorException

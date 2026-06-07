@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2023 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.filelist
 
 import android.app.Dialog

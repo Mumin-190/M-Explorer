@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2024 Mumin <mumin@example.com>
- * All Rights Reserved.
- */
-
 package me.mumin.android.files.fileproperties.checksum
 
 import androidx.annotation.StringRes
