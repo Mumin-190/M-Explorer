@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Mumin <mumin@example.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ImpliedQuantity">
+
+    <string name="app_name">M-Explorer</string>
+
+    <string name="close">بستن</string>
+    <string name="copy">رونوشت</string>
+    <string name="cut">برش</string>
+    <string name="default_">پیش‌گزیده</string>
+    <string name="delete">حذف</string>
+    <string name="discard">دورانداختن</string>
+    <string name="edit">ویرایش</string>
+    <string name="empty">خالی</string>
+    <string name="empty_placeholder">(خالی)</string>
+    <string name="error">خطا</string>
+    <string name="hide">پنهان</string>
+    <string name="install">نصب</string>
+    <string name="keep_editing">نگه‌داشتن ویرایش</string>
+    <string name="loading">در حال بار کردن…</string>
+    <string name="maybe_later">شاید بعداً</string>
+    <string name="merge">ادغام</string>
+    <string name="none">هیچ</string>
+    <string name="open_navigation_drawer">گشودن کشوی ناوبری</string>
+    <string name="paste">جای‌گذاری</string>
+    <string name="refresh">نوسازی</string>
+    <string name="reload">بار کردن دوباره</string>
+    <string name="remove">حذف</string>
+    <string name="rename">تغییر نام</string>
+    <string name="replace">جایگزینی</string>
+    <string name="reset">بازنشانی</string>
+    <string name="retry">تلاش دوباره</string>
+    <string name="save">ذخیره</string>
+    <string name="search">جست‌وجو</string>
+    <string name="select">گزینش</string>
+    <string name="select_all">گزینش همه</string>
+    <string name="share">هم‌رسانی</string>
+    <string name="show">نمایش</string>
+    <string name="skip">پرش</string>
+    <string name="stop">توقّف</string>
+    <string name="unknown">ناشناس</string>
+    <string name="view">دیدن</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">برنامه‌ای برای اداره کردن این کنش یافت نشد</string>
+    <string name="open_settings">گشودن تنظیمات</string>
+    <string name="shortcut_created">میان‌بر ایجاد شد</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d بایت</item>
+        <item quantity="other">%1$,d بایت</item>
+    </plurals>
+
+    <string name="all_files_access_rationale_message">برنامه برای مدیریت همهٔ پرونده‌ها نیاز به دسترسی دارد. لطفاً اجازهٔ دسترسی را در تنظیمات سامانهٔ پیش‌رو، بدهید.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
+    <string name="storage_permission_rationale_message">برنامه اجازهٔ دسترسی به پرونده‌ها را نیاز دارد. لطفاً در کادر گفت‌وگوی سامانه که به زودی می‌آید، روی «پذیرش» کلیک کنید.</string>
+    <string name="storage_permission_permanently_denied_message">برنامه اجازهٔ دسترسی به پرونده‌ها را نیاز دارد. لطفاً اجازهٔ «ذخیره‌سازی» را در تنظیمات سامانه بدهید.</string>
+    <string name="notification_channel_background_activity_start_name">کنش‌های در پس‌زمیه</string>
+    <string name="notification_channel_background_activity_start_description">هنگامی که برنامه در پس‌زمینه است، کنش‌ها را انجام دهید</string>
+    <string name="notification_channel_file_job_name">عملیات‌های پرونده</string>
+    <string name="notification_channel_file_job_description">نمایش و کنترل عملیات‌های پرونده</string>
+    <string name="notification_channel_ftp_server_name">کارساز اف‌تی‌پی</string>
+    <string name="notification_channel_ftp_server_description">نمایش و مهار کارساز اف‌تی‌پی</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای فشرده کردن %1$,d پرونده (⁨%2$s⁩)</item>
+        <item quantity="other">در حال آماده‌سازی برای فشرده کردن %1$,d پرونده (⁨%2$s⁩)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">در حال فشرده کردن «⁨%1$s⁩» به «⁨%2$s⁩»</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">در حال فشرده کردن %1$,d پرونده به «⁨%2$s⁩»</item>
+        <item quantity="other">در حال فشرده کردن %1$,d پرونده به «⁨%2$s⁩»</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای رونوشت %1$,d پرونده (⁨%2$s⁩)</item>
+        <item quantity="other">در حال آماده‌سازی برای رونوشت %1$,d پرونده (⁨%2$s⁩)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">در حال رونوشت «⁨%1$s⁩» به «⁨%2$s⁩»</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">در حال رونوشت %1$,d پرونده به «⁨%2$s⁩»</item>
+        <item quantity="other">در حال رونوشت %1$,d پرونده به «⁨%2$s⁩»</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای استخراج %1$,d پرونده (⁨%2$s⁩)</item>
+        <item quantity="other">در حال آماده‌سازی برای استخراج %1$,d پرونده (⁨%2$s⁩)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">در حال استخراج «⁨%1$s⁩» به «⁨%2$s⁩»</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">در حال استخراج %1$,d پرونده به «⁨%2$s⁩»</item>
+        <item quantity="other">در حال استخراج %1$,d پرونده به «⁨%2$s⁩»</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای جابه‌جایی %1$,d پرونده (⁨%2$s⁩)</item>
+        <item quantity="other">در حال آماده‌سازی برای جابه‌جایی %1$,d پرونده (⁨%2$s⁩)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">در حال جابه‌جایی «⁨%1$s⁩» به «⁨%2$s⁩»</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">در حال جابه‌جایی %1$,d پرونده به «⁨%2$s⁩»</item>
+        <item quantity="other">در حال جابه‌جایی %1$,d پرونده به «⁨%2$s⁩»</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">⁦%1$,d / %2$,d⁩</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای حذف %1$,d پرونده</item>
+        <item quantity="other">در حال آماده‌سازی برای حذف %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">در حال حذف «⁨%1$s⁩»</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">در حال حذف %1$,d پرونده</item>
+        <item quantity="other">در حال حذف %1$,d پرونده</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای تغییر مالک %1$,d پرونده</item>
+        <item quantity="other">در حال آماده‌سازی برای تغییر مالک %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">در حال تغییر مالک «⁨%1$s⁩»</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">در حال تغییر مالک %1$,d پرونده</item>
+        <item quantity="other">در حال تغییر مالک %1$,d پرونده</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای تغییر گروه %1$,d پرونده</item>
+        <item quantity="other">در حال آماده‌سازی برای تغییر گروه %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">در حال تغییر گروه «⁨%1$s⁩»</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">در حال تغییر گروه %1$,d پرونده</item>
+        <item quantity="other">در حال تغییر گروه %1$,d پرونده</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">در حال آماده سازی برای تغییر حالت %1$,d پرونده</item>
+        <item quantity="other">در حال آماده سازی برای تغییر حالت %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">در حال تغییر حالت «⁨%1$s⁩»</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">در حال تغییر حالت %1$,d پرونده</item>
+        <item quantity="other">در حال تغییر حالت %1$,d پرونده</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای تغییر مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+        <item quantity="other">در حال آماده‌سازی برای تغییر مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">در حال تغییر مفاد اس‌ای‌لینوکس «⁨%1$s⁩»</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">در حال تغییر مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+        <item quantity="other">در حال تغییر مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">در حال آماده‌سازی برای بازگردانی مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+        <item quantity="other">در حال آماده‌سازی برای بازگردانی مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">در حال بازگردانی مفاد اس‌ای‌لینوکس «⁨%1$s⁩»</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">در حال بازگردانی مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+        <item quantity="other">در حال بازگردانی مفاد اس‌ای‌لینوکس برای %1$,d پرونده</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">⁦%1$,d / %2$,d⁩</string>
+    <string name="file_job_write_notification_title_format">در حال نوشتن «⁨%1$s⁩»</string>
+    <string name="file_job_create_error_title">خطا هنگام ایجاد کردن</string>
+    <string name="file_job_create_error_message_format">هنگام ایجاد کردن «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">نمی‌توان یک شاخه را به درون خودش رونوشت کرد</string>
+    <string name="file_job_cannot_extract_into_itself_title">نمی‌توان یک شاخه را به درون خودش استخراج کرد</string>
+    <string name="file_job_cannot_move_into_itself_title">نمی‌توان یک شاخه را به درون خودش جابه‌جا کرد</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">شاخهٔ مقصد داخل شاخهٔ مبدأ است.</string>
+    <string name="file_job_cannot_copy_over_itself_title">نمی‌توان یک پرونده را روی خودش رونوشت کرد</string>
+    <string name="file_job_cannot_extract_over_itself_title">نمی‌توان یک پرونده را روی خودش استخراج کرد</string>
+    <string name="file_job_cannot_move_over_itself_title">نمی‌توان یک پرونده را روی خودش جابه‌جا کرد</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">پروندهٔ مبدأ توسط مقصد بازنویسی می‌شود.</string>
+    <string name="file_job_replace_title_format">پروندهٔ «⁨%1$s⁩» جای‌گزین شود؟</string>
+    <string name="file_job_replace_message_format">هم‌اکنون پرونده‌ای دیگر با همین نام در «⁨%1$s⁩» موجود است.\nجای‌گزین کردن آن محتویاتش را بازنویسی می‌کند.</string>
+    <string name="file_job_replace_target_name">پروندهٔ اصلی</string>
+    <string name="file_job_replace_source_name">جای‌گزینی با</string>
+    <string name="file_job_merge_title_format">شاخهٔ «⁨%1$s⁩» ادغام شود؟</string>
+    <string name="file_job_merge_copy_message_format">هنگام ادغام کردن پیش از جای‌گزینی پرونده‌های موجود در شاخه که با پرونده‌های در حال رونوشت شدن تضاد دارند، درخواست تأیید می‌کند.</string>
+    <string name="file_job_merge_extract_message_format">هنگام ادغام کردن پیش از جای‌گزینی پرونده‌های موجود در شاخه که با پرونده‌های در حال استخراج تضاد دارند، درخواست تأیید می‌کند.</string>
+    <string name="file_job_merge_move_message_format">هنگام ادغام کردن پیش از جای‌گزینی پرونده‌های موجود در شاخه که با پرونده‌های در حال جابه‌جایی تضاد دارند، درخواست تأیید می‌کند.</string>
+    <string name="file_job_merge_target_name">شاخهٔ اصلی</string>
+    <string name="file_job_merge_source_name">ادغام با</string>
+    <string name="file_job_conflict_show_name">نامی جدید برای مقصد برگزینید</string>
+    <string name="file_job_conflict_name_hint">نام جدید</string>
+    <string name="file_job_archive_error_title_format">خطا هنگام فشرده کردن «⁨%1$s⁩»</string>
+    <string name="file_job_archive_error_message_format">هنگام فشرده کردن پرونده به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">خطا هنگام رونوشت «⁨%1$s⁩»</string>
+    <string name="file_job_copy_error_message_format">هنگام رونوشت پرونده به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">خطا هنگام استخراج «⁨%1$s⁩»</string>
+    <string name="file_job_extract_error_message_format">هنگام استخراج پرونده به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_move_error_title_format">خطا هنگام جابه‌جایی «⁨%1$s⁩»</string>
+    <string name="file_job_move_error_message_format">هنگام جابه‌جایی پرونده به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_delete_error_title">خطا هنگام حذف کردن</string>
+    <string name="file_job_delete_error_message_format">هنگام حذف کردن «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">خطا هنگام تغییر نام «⁨%1$s⁩»</string>
+    <string name="file_job_rename_error_message_format">هنگام تغییر نام پرونده به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">خطا هنگام تغییر مالک «⁨%1$s⁩»</string>
+    <string name="file_job_set_owner_error_message_format">هنگام تغییر مالک به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">خطا هنگام تغییر گروه «⁨%1$s⁩»</string>
+    <string name="file_job_set_group_error_message_format">هنگام تغییر گروه به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">خطا هنگام تغییر حالت «⁨%1$s⁩»</string>
+    <string name="file_job_set_mode_error_message_format">هنگام تغییر حالت «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">خطا هنگام تغییر مفاد اس‌ای‌لینوکس «⁨%1$s⁩»</string>
+    <string name="file_job_set_selinux_context_error_message_format">هنگام تغییر مفاد اس‌ای‌لینوکس به «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">خطا هنگام بازگردانی مفاد اس‌ای‌لینوکس</string>
+    <string name="file_job_restore_selinux_context_error_message_format">هنگام بازگردانی مفاد اس‌ای‌لینوکس برای «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_write_error_title">خطا هنگام نوشتن</string>
+    <string name="file_job_write_error_message_format">هنگام نوشتن «⁨%1$s⁩» خطایی رخ داد.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">هنگام دریافت اطّلاعات دربارهٔ «⁨%1$s⁩» خطایی رخ داد.</string>
+    <string name="file_job_remount_format">سوار کردن دوبارهٔ «⁨%1$s⁩» به عنوان خواندن-نوشتن</string>
+    <string name="file_job_remount_loading_format">در حال سوار کردن دوبارهٔ «⁨%1$s⁩» به عنوان خواندن-نوشتن…</string>
+    <string name="file_job_remount_success_format">«⁨%1$s⁩» به عنوان خواندن-نوشتن دوباره سوار شد</string>
+    <string name="file_job_action_all">اعمال این کنش به همهٔ پرونده‌ها</string>
+
+    <string name="file_open_apk_message">این پرونده یک بستهٔ اندروید است. آیا می‌خواهید آن را نصب کنید، یا محتویاتش را ببینید؟</string>
+    <string name="file_open_as_title">گشودن به عنوان…</string>
+    <string name="file_open_as_title_format">گشودن «⁨%1$s⁩» به عنوان</string>
+    <string name="file_open_as_type_text">متن</string>
+    <string name="file_open_as_type_image">تصویر</string>
+    <string name="file_open_as_type_audio">صدا</string>
+    <string name="file_open_as_type_video">ویدیو</string>
+    <string name="file_open_as_type_directory">شاخه</string>
+    <string name="file_open_as_type_any">دیگر</string>
+    <string name="file_install_apk_from_background_title_format">«⁨%1$s⁩» آمادهٔ نصب است</string>
+    <string name="file_install_apk_from_background_text">برای نصب ضربه بزنید</string>
+    <string name="file_open_from_background_title_format">«⁨%1$s⁩» آمادهٔ گشودن است</string>
+    <string name="file_open_from_background_text">برای گشودن ضربه بزنید</string>
+    <string name="file_name_error_empty">نام پرونده نمی‌تواند خالی باشد</string>
+    <string name="file_name_error_invalid">نام پرونده نامعتبر است</string>
+    <string name="file_name_error_already_exists">پرونده‌ای با این نام هم‌اکنون موجود است</string>
+    <string name="file_delete_message_file_format">مورد «⁨%1$s⁩» حذف شود؟</string>
+    <string name="file_delete_message_directory_format">شاخهٔ «⁨%1$s⁩» و محتویاتش حذف شود؟</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">تعداد %1$,d پرونده حذف شود؟</item>
+        <item quantity="other">تعداد %1$,d پرونده حذف شوند؟</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">تعداد %1$,d شاخه و محتویاتشان حذف شود؟</item>
+        <item quantity="other">تعداد %1$,d شاخه و محتویاتشان حذف شوند؟</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">تعداد %1$,d مورد حذف شود؟</item>
+        <item quantity="other">تعداد %1$,d مورد حذف شوند؟</item>
+    </plurals>
+    <string name="file_create_archive_title">ساختن بایگانی</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">نشانک افزوده شد</string>
+    <string name="file_create_file_title">پروندهٔ جدید</string>
+    <string name="file_create_directory_title">شاخهٔ جدید</string>
+
+    <string name="file_list_title">پرونده‌ها</string>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d شاخه</item>
+        <item quantity="other">%1$,d شاخه</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d پرونده</item>
+        <item quantity="other">%1$,d پرونده</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">،\u0020</string>
+    <string name="file_list_path_error_empty">مسیر نمی‌تواند خالی باشد</string>
+    <string name="file_list_path_error_invalid">مسیر نامعتبر است</string>
+    <string name="file_list_action_sort_by_name">نام</string>
+    <string name="file_list_action_sort_by_type">گونه</string>
+    <string name="file_list_action_sort_by_size">اندازه</string>
+    <string name="file_list_action_sort_by_last_modified">آخرین تغییر</string>
+    <string name="file_list_action_sort_order_ascending">بالا رونده</string>
+    <string name="file_list_action_sort_directories_first">ابتدا شاخه‌ها</string>
+    <string name="file_list_action_new_task">پنجرهٔ جدید</string>
+    <string name="file_list_action_navigate_up">برو بالا</string>
+    <string name="file_list_action_navigate_to">رفتن به</string>
+    <string name="file_list_action_show_hidden_files">نمایش پرونده‌های پنهان</string>
+    <string name="file_list_action_copy_path">رونوشت مسیر</string>
+    <string name="file_list_action_open_in_terminal">گشودن در پایانه</string>
+    <string name="file_list_action_add_bookmark">افزودن نشانک</string>
+    <string name="file_list_action_create_shortcut">ایجاد میان‌بر</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">گشودن در پنجرهٔ جدید</string>
+    <string name="file_list_paste_move_title_format">در حال جابه‌جایی %1$,d</string>
+    <string name="file_list_paste_copy_title_format">در حال رونوشت %1$,d</string>
+    <string name="file_list_paste_extract_title_format">در حال استخراج %1$,d</string>
+    <string name="file_list_paste_action_extract_here">اینجا استخراج شود</string>
+    <string name="file_list_empty">بدون پرونده</string>
+    <string name="file_list_action_create_file">پرونده</string>
+    <string name="file_list_action_create_directory">شاخه</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">گشودن با</string>
+    <string name="file_item_action_extract">استخراج</string>
+    <string name="file_item_action_archive">فشرده‌سازی</string>
+    <string name="file_item_action_properties">ویژگی‌ها</string>
+
+    <string name="file_properties_title_format">ویژگی‌های «⁨%1$s⁩»</string>
+    <string name="file_properties_basic">پایه‌ای</string>
+    <string name="file_properties_basic_name">نام</string>
+    <string name="file_properties_basic_type">گونه</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">پیوند به %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">هدف پیوند</string>
+    <string name="file_properties_basic_size">اندازه</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">محتویات</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d مورد، با اندازهٔ %2$s</item>
+        <item quantity="other">%1$,d مورد، مجموعاً %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">آخرین تغییر</string>
+    <string name="file_properties_basic_parent_directory">شاخهٔ والد</string>
+    <string name="file_properties_basic_archive_file">پروندهٔ بایگانی</string>
+    <string name="file_properties_basic_archive_entry">ورودی بایگانی</string>
+    <string name="file_properties_basic_free_space">فضای خالی</string>
+    <string name="file_properties_image">تصویر</string>
+    <string name="file_properties_media_dimensions">ابعاد</string>
+    <string name="file_properties_media_dimensions_format">⁦%1$d \u00d7 %2$d⁩</string>
+    <string name="file_properties_media_date_time">گرفته‌شده در</string>
+    <string name="file_properties_media_coordinates">مختصات</string>
+    <string name="file_properties_media_coordinates_format">⁦%1$.3f، %2$.3f⁩</string>
+    <string name="file_properties_media_address">مکان</string>
+    <string name="file_properties_image_gps_altitude">ارتفاع</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f متر</string>
+    <string name="file_properties_image_equipment">دوربین</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">دهانه</string>
+    <string name="file_properties_image_shutter_speed">زمان نوردهی</string>
+    <string name="file_properties_image_focal_length">فاصلهٔ کانونی</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f میلی‌متر</string>
+    <string name="file_properties_image_photographic_sensitivity">معادل ایزو</string>
+    <string name="file_properties_image_photographic_sensitivity_format">%1$d ایزو</string>
+    <string name="file_properties_image_software">نرم‌افزار</string>
+    <string name="file_properties_image_description">شرح</string>
+    <string name="file_properties_image_artist">سازنده</string>
+    <string name="file_properties_image_copyright">حق نشر</string>
+    <string name="file_properties_audio">صدا</string>
+    <string name="file_properties_media_title">عنوان</string>
+    <string name="file_properties_audio_artist">هنرمند</string>
+    <string name="file_properties_audio_album">آلبوم</string>
+    <string name="file_properties_audio_album_artist">هنرمند آلبوم</string>
+    <string name="file_properties_audio_composer">آهنگ‌ساز</string>
+    <string name="file_properties_audio_disc_number">دیسک</string>
+    <string name="file_properties_audio_track_number">قطعه</string>
+    <string name="file_properties_audio_year">سال</string>
+    <string name="file_properties_audio_genre">دسته</string>
+    <string name="file_properties_media_duration">مدّت</string>
+    <string name="file_properties_media_bit_rate">نرخ بیت</string>
+    <string name="file_properties_media_bit_rate_format">%1$d کیلوبیت بر ثانیه</string>
+    <string name="file_properties_audio_sample_rate">نرخ نمونه</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d هرتز</string>
+    <string name="file_properties_video">ویدیو</string>
+    <string name="file_properties_apk">بستهٔ اندروید</string>
+    <string name="file_properties_apk_label">نام</string>
+    <string name="file_properties_apk_package_name">نام بسته</string>
+    <string name="file_properties_apk_version">نگارش</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">حداقل نگارش سامانه</string>
+    <string name="file_properties_apk_target_sdk_version">نگارش سامانهٔ هدف</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s، %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">مجوزها</string>
+    <string name="file_properties_apk_requested_permissions_zero">هیچ مجوزی درخواست نشد</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d مجوز درخواست شد</item>
+        <item quantity="other">%1$,d مجوز درخواست شد</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">امضاها</string>
+    <string name="file_properties_apk_signature_digests_empty">بدون امضای معتبر</string>
+    <string name="file_properties_apk_past_signature_digests">امضاهای قدیمی</string>
+    <string name="storage_file_system_root_title">ریشه</string>
+    <string name="storage_list_title">ذخیره‌ساز</string>
+    <string name="storage_list_empty">بدون ذخیره‌ساز</string>
+    <string name="storage_add_storage_title">افزودن ذخیره‌ساز</string>
+    <string name="storage_add_storage_document_tree">ذخیره‌ساز خارجی</string>
+    <string name="storage_add_storage_ftp_server">کارساز اف‌تی‌پی</string>
+    <string name="storage_add_storage_sftp_server">کارساز اس‌اف‌تی‌پی</string>
+    <string name="storage_add_storage_smb_server">کارساز اس‌ام‌بی</string>
+    <string name="storage_edit_device_storage_title">ویرایش ذخیره‌ساز افزاره</string>
+    <string name="storage_edit_device_storage_name">نام</string>
+    <string name="storage_edit_device_storage_path">مسیر</string>
+    <string name="storage_add_document_tree_title">افزودن ذخیره‌ساز خارجی</string>
+    <string name="storage_edit_document_tree_title">ویرایش ذخیره‌ساز خارجی</string>
+    <string name="storage_edit_document_tree_name">نام</string>
+    <string name="storage_edit_document_tree_uri">نشانی</string>
+    <string name="storage_edit_document_tree_path">مسیر</string>
+    <string name="storage_edit_ftp_server_title_edit">ویرایش کارساز اف‌تی‌پی</string>
+    <string name="storage_edit_ftp_server_title_add">افزودن کارساز اف‌تی‌پی</string>
+    <string name="storage_edit_ftp_server_host">نام میزبان</string>
+    <string name="storage_edit_ftp_server_host_error_empty">نام میزبان را وارد کنید</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">نام میزبان نامعتبر است</string>
+    <string name="storage_edit_ftp_server_port">درگاه</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">درگاه نامعتبر است</string>
+    <string name="storage_edit_ftp_server_path">مسیر</string>
+    <string name="storage_edit_ftp_server_path_placeholder">می‌تواند خالی بماند</string>
+    <string name="storage_edit_ftp_server_name">نام</string>
+    <string name="storage_edit_ftp_server_name_placeholder">استفاده از نام میزبان</string>
+    <string name="storage_edit_ftp_server_protocol">شیوه‌نامه</string>
+    <string name="storage_edit_ftp_server_authentication_type">احراز هویت</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>گذرواژه</item>
+        <item>ناشناس</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">نام کاربری</string>
+    <string name="storage_edit_ftp_server_username_error_empty">نام کاربری را وارد کنید</string>
+    <string name="storage_edit_ftp_server_password">گذرواژه</string>
+    <string name="storage_edit_ftp_server_mode">حالت</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>فعّال</item>
+        <item>منفعل</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">رمزگذاری</string>
+    <string name="storage_edit_ftp_server_connect_and_add">اتّصال و افزودن</string>
+    <string name="storage_edit_ftp_server_add">افزودن</string>
+    <string name="storage_edit_sftp_server_title_edit">ویرایش کارساز اس‌اف‌تی‌پی</string>
+    <string name="storage_edit_sftp_server_title_add">افزودن کارساز اس‌اف‌تی‌پی</string>
+    <string name="storage_edit_sftp_server_host">نام میزبان</string>
+    <string name="storage_edit_sftp_server_host_error_empty">یک نام میزبان وارد کنید</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">نام میزبان نامعتبر است</string>
+    <string name="storage_edit_sftp_server_port">درگاه</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">درگاه نامعتبر</string>
+    <string name="storage_edit_sftp_server_path">مسیر</string>
+    <string name="storage_edit_sftp_server_path_placeholder">می‌تواند خالی بماند</string>
+    <string name="storage_edit_sftp_server_name">نام</string>
+    <string name="storage_edit_sftp_server_name_placeholder">استفاده از نام میزبان</string>
+    <string name="storage_edit_sftp_server_authentication_type">احراز هویت</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>گذرواژه</item>
+        <item>کلید عمومی</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">نام کاربری</string>
+    <string name="storage_edit_sftp_server_username_error_empty">یک نام کاربری وارد کنید</string>
+    <string name="storage_edit_sftp_server_password">گذرواژه</string>
+    <string name="storage_edit_sftp_server_private_key">کلید خصوصی</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">گشودن پرونده</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">یک کلید خصوصی وارد کنید</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">کلید خصوصی نامعتبر</string>
+    <string name="storage_edit_sftp_server_private_key_password">گذرواژهٔ کلید خصوصی</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">می‌تواند خالی بماند</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">گذرواژهٔ کلید خصوصی نامعتبر است</string>
+    <string name="storage_edit_sftp_server_connect_and_add">اتّصال و افزودن</string>
+    <string name="storage_edit_sftp_server_add">افزودن</string>
+    <string name="storage_add_lan_smb_server_loading">در حال جست‌وجو برای کارسازهای اس‌ام‌بی…</string>
+    <string name="storage_add_lan_smb_server_add">افزودن دستی</string>
+    <string name="storage_edit_smb_server_title_edit">ویرایش کارساز اس‌ام‌بی</string>
+    <string name="storage_edit_smb_server_title_add">افزودن کارساز اس‌ام‌بی</string>
+    <string name="storage_edit_smb_server_host">نام میزبان</string>
+    <string name="storage_edit_smb_server_host_error_empty">یک نام میزبان وارد کنید</string>
+    <string name="storage_edit_smb_server_host_error_invalid">نام میزبان نامعتبر است</string>
+    <string name="storage_edit_smb_server_port">درگاه</string>
+    <string name="storage_edit_smb_server_port_error_invalid">درگاه نامعتیر</string>
+    <string name="storage_edit_smb_server_path">مسیر</string>
+    <string name="storage_edit_smb_server_path_placeholder">می‌تواند خالی بماند</string>
+    <string name="storage_edit_smb_server_name">نام</string>
+    <string name="storage_edit_smb_server_name_placeholder">استفاده از نام میزبان</string>
+    <string name="storage_edit_smb_server_authentication_type">احراز هویت</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>گذرواژه</item>
+        <item>مهمان</item>
+        <item>ناشناس</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">نام کاربری</string>
+    <string name="storage_edit_smb_server_username_error_empty">یک نام کاربری وارد کنید</string>
+    <string name="storage_edit_smb_server_password">گذرواژه</string>
+    <string name="storage_edit_smb_server_domain">دامنه</string>
+    <string name="storage_edit_smb_server_connect_and_add">اتّصال و افزودن</string>
+    <string name="storage_edit_smb_server_add">افزودن</string>
+    <string name="navigation_storage_subtitle_format">%1$s آزاد از %2$s</string>
+    <string name="navigation_add_storage">افزودن ذخیره‌ساز…</string>
+    <string name="navigation_standard_directory_alarms">زنگ‌ها</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">اسناد</string>
+    <string name="navigation_standard_directory_downloads">بارگیری‌ها</string>
+    <string name="navigation_standard_directory_movies">ویدیوها</string>
+    <string name="navigation_standard_directory_music">آهنگ‌ها</string>
+    <string name="navigation_standard_directory_notifications">آگاهی‌ها</string>
+    <string name="navigation_standard_directory_pictures">تصویرها</string>
+    <string name="navigation_standard_directory_podcasts">پادکست‌ها</string>
+    <string name="navigation_standard_directory_ringtones">آهنگ‌های زنگ</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">شاخهٔ نشانک</string>
+    <string name="navigation_edit_bookmark_directory_name">نام</string>
+    <string name="navigation_edit_bookmark_directory_path">مسیر</string>
+    <string name="archive_viewer_title">نمایشگر بایگانی</string>
+    <string name="image_viewer_title">نمایشگر تصویر</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="text_editor_title">ویرایشگر متن</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">ذخیره شد</string>
+    <string name="text_editor_reload_message">آیا مطمئن هستید که می‌خواهید دوباره بارگزاری کنید؟ تغییرات ذخیره نشده در این سند از بین خواهند رفت.</string>
+    <string name="text_editor_encoding">رمزگذاری</string>
+    <string name="text_editor_close_message">آیا مطمئن هستید که می‌خواهید تغییرات ذخیره نشده در این سند را دور بریزید؟</string>
+
+    <string name="ftp_server_title">کارساز اف‌تی‌پی</string>
+    <string name="ftp_server_state_title">وضعیت</string>
+    <string name="ftp_server_state_summary_starting">در حال شروع…</string>
+    <string name="ftp_server_state_summary_running">در حال اجرا</string>
+    <string name="ftp_server_state_summary_stopping">در حال توقّف…</string>
+    <string name="ftp_server_state_summary_stopped">شروع نشد</string>
+    <string name="ftp_server_url_title">نشانی</string>
+    <string name="ftp_server_url_menu_copy_url">رونوشت نشانی</string>
+    <string name="ftp_server_url_menu_copy_password">رونوشت گذرواژه</string>
+    <string name="ftp_server_configuration_title">پیکربندی</string>
+    <string name="ftp_server_anonymous_login_title">ورود ناشناس</string>
+    <string name="ftp_server_username_title">نام کاربری</string>
+    <string name="ftp_server_password_title">گذرواژه</string>
+    <string name="ftp_server_port_title">درگاه</string>
+    <string name="ftp_server_home_directory_title">شاخهٔ ریشه</string>
+    <string name="ftp_server_writable_title">اجازهٔ نوشتن</string>
+    <string name="settings_title">تنظیمات</string>
+    <string name="settings_interface_title">رابط</string>
+    <string name="settings_theme_color_title">رنگ زمینه</string>
+    <string name="settings_theme_color_summary">رنگی که بیشتر در برنامه ظاهر می‌شود</string>
+    <string name="settings_material_design_3_title">طراحی متریال ۳</string>
+    <string name="settings_night_mode_title">حالت شب</string>
+    <string-array name="settings_night_mode_entries">
+        <item>پی‌روی از سامانه</item>
+        <item>خاموش</item>
+        <item>روشن</item>
+        <item>بر پایهٔ زمان</item>
+        <item>بر پایهٔ محافظ باتری</item>
+    </string-array>
+    <string name="settings_black_night_mode">حالت شب تاریک</string>
+    <string name="settings_file_list_animation_title">پویانمایی فهرست پرونده‌ها</string>
+    <string name="settings_file_name_ellipsize_title">نمایش نام پروندهٔ طولانی</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>پیچاندن ابتدا</item>
+        <item>پیچاندن وسط</item>
+        <item>پیچاندن انتها</item>
+        <item>متحرک</item>
+    </string-array>
+    <string name="settings_behavior_title">رفتار</string>
+    <string name="settings_default_directory_title">شاخهٔ پیش‌گزیده</string>
+    <string name="settings_standard_directories_title">شاخه‌های استاندارد</string>
+    <string name="settings_standard_directories_summary_empty">هیچ شاخهٔ استانداردی به کار انداخته نشده است</string>
+    <string name="settings_bookmark_directory_screenshots">نماگرفت‌ها</string>
+    <string name="settings_bookmark_directories_title">شاخه‌های نشان شده</string>
+    <string name="settings_bookmark_directories_summary_empty">بدون شاخهٔ نشان شده</string>
+    <string name="settings_root_strategy_title">حالت دسترسی ریشه</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">شما %1$,d عملیات پروندهٔ در حال اجرا دارید و تغییر حالت دسترسی ریشه اکنون ممکن است منجر به خطای غیرمنتظره شود. آیا مطمئنید که اکنون می‌خواهید آن را تغییر دهید؟</item>
+        <item quantity="other">شما %1$,d عملیات پروندهٔ در حال اجرا دارید و تغییر حالت دسترسی ریشه اکنون ممکن است منجر به خطای غیرمنتظره شود. آیا مطمئنید که اکنون می‌خواهید آن را تغییر دهید؟</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>فقط دسترسی معمولی</item>
+        <item>خودکار</item>
+        <item>فقط دسترسی ریشه</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">رمزگذاری نام پروندهٔ بایگانی</string>
+    <string name="settings_open_apk_default_action_title">گشودن بستهٔ اندروید</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>نصب</item>
+        <item>دیدن محتویات</item>
+        <item>بپرس چه باید کرد</item>
+    </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">ممکن است برنامه را در نگارش‌های قدیمی‌تر اندروید ناپایدار کند</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">پرونده‌های دوردست را برای بندانگشتی بخوان</string>
+
+    <string name="about_title">درباره</string>
+    <string name="about_version_title">نگارش</string>
+    <string name="about_github_title">دیدن در گیت‌هاب</string>
+    <string name="about_licenses_title">پروانه‌ها</string>
+    <string name="about_privacy_policy_title">سیاست حفظ حریم خصوصی</string>
+    <string name="about_author_title">نویسنده</string>
+    <string name="about_author_name_title">Mumin</string>
+    <string name="about_author_github_title">پی‌گیری در گیت‌هاب</string>
+    <string name="about_author_twitter_title">پی‌گیری در توییتر</string>
+</resources>

@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2021 Mumin <mumin@example.com>
+ * All Rights Reserved.
+ */
+
+package me.mumin.android.files.storage
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import me.mumin.android.files.util.Stateful
+
+class AddLanSmbServerViewModel : ViewModel() {
+    private val _lanSmbServerListLiveData = LanSmbServerListLiveData()
+    val lanSmbServerListLiveData: LiveData<Stateful<List<LanSmbServer>>> = _lanSmbServerListLiveData
+
+    fun reload() {
+        _lanSmbServerListLiveData.loadValue()
+    }
+
+    override fun onCleared() {
+        _lanSmbServerListLiveData.close()
+    }
+}

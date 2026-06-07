@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2023 Mumin <mumin@example.com>
+ * All Rights Reserved.
+ */
+
+package me.mumin.android.files.util
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.IntentFilter
+import androidx.core.content.ContextCompat
+import me.mumin.android.files.compat.registerReceiverCompat
+
+class RuntimeBroadcastReceiver(
+    private val filter: IntentFilter,
+    private val receiver: BroadcastReceiver,
+    private val context: Context,
+    private val flags: Int = ContextCompat.RECEIVER_NOT_EXPORTED
+) {
+    fun register() {
+        context.registerReceiverCompat(receiver, filter, flags)
+    }
+
+    fun unregister() {
+        context.unregisterReceiver(receiver)
+    }
+}

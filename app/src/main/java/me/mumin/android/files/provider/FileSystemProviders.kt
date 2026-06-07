@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2019 Mumin <mumin@example.com>
+ * All Rights Reserved.
+ */
+
+package me.mumin.android.files.provider
+
+import java8.nio.file.Files
+import java8.nio.file.ProviderNotFoundException
+import java8.nio.file.spi.FileSystemProvider
+import me.mumin.android.files.provider.archive.ArchiveFileSystemProvider
+import me.mumin.android.files.provider.common.AndroidFileTypeDetector
+import me.mumin.android.files.provider.content.ContentFileSystemProvider
+import me.mumin.android.files.provider.document.DocumentFileSystemProvider
+import me.mumin.android.files.provider.ftp.FtpFileSystemProvider
+import me.mumin.android.files.provider.ftp.FtpesFileSystemProvider
+import me.mumin.android.files.provider.ftp.FtpsFileSystemProvider
+import me.mumin.android.files.provider.linux.LinuxFileSystemProvider
+import me.mumin.android.files.provider.root.isRunningAsRoot
+import me.mumin.android.files.provider.sftp.SftpFileSystemProvider
+import me.mumin.android.files.provider.smb.SmbFileSystemProvider
+import me.mumin.android.files.provider.webdav.WebDavFileSystemProvider
+import me.mumin.android.files.provider.webdav.WebDavsFileSystemProvider
+
+object FileSystemProviders {
+    /**
+     * If set, WatchService implementations will skip processing any event data and simply send an
+     * overflow event to all the registered keys upon successful read from the inotify fd. This can
+     * help reducing the JNI and GC overhead when large amount of inotify events are generated.
+     * Simply sending an overflow event to all the keys is okay because we use only one key per
+     * service for WatchServicePathObservable.
+     */
+    @Volatile
+    var overflowWatchEvents = false
+
+    fun install() {
+        FileSystemProvider.installDefaultProvider(LinuxFileSystemProvider)
+        FileSystemProvider.installProvider(ArchiveFileSystemProvider)
+        if (!isRunningAsRoot) {
+            FileSystemProvider.installProvider(ContentFileSystemProvider)
+            FileSystemProvider.installProvider(DocumentFileSystemProvider)
+            FileSystemProvider.installProvider(FtpFileSystemProvider)
+            FileSystemProvider.installProvider(FtpsFileSystemProvider)
+            FileSystemProvider.installProvider(FtpesFileSystemProvider)
+            FileSystemProvider.installProvider(SftpFileSystemProvider)
+            FileSystemProvider.installProvider(SmbFileSystemProvider)
+            FileSystemProvider.installProvider(WebDavFileSystemProvider)
+            FileSystemProvider.installProvider(WebDavsFileSystemProvider)
+        }
+        Files.installFileTypeDetector(AndroidFileTypeDetector)
+    }
+
+    operator fun get(scheme: String): FileSystemProvider {
+        for (provider in FileSystemProvider.installedProviders()) {
+            if (provider.scheme.equals(scheme, ignoreCase = true)) {
+                return provider
+            }
+        }
+        throw ProviderNotFoundException(scheme)
+    }
+}

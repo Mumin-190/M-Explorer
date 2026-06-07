@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2019 Mumin <mumin@example.com>
+ * All Rights Reserved.
+ */
+
+package me.mumin.android.files.fileproperties
+
+import android.os.AsyncTask
+import java8.nio.file.Path
+import me.mumin.android.files.file.FileItem
+import me.mumin.android.files.file.loadFileItem
+import me.mumin.android.files.util.Failure
+import me.mumin.android.files.util.Loading
+import me.mumin.android.files.util.Stateful
+import me.mumin.android.files.util.Success
+import me.mumin.android.files.util.valueCompat
+
+class FileLiveData private constructor(
+    path: Path,
+    file: FileItem?
+) : PathObserverLiveData<Stateful<FileItem>>(path) {
+    constructor(path: Path) : this(path, null)
+
+    constructor(file: FileItem) : this(file.path, file)
+
+    init {
+        if (file != null) {
+            value = Success(file)
+        } else {
+            loadValue()
+        }
+        observe()
+    }
+
+    override fun loadValue() {
+        value = Loading(value?.value)
+        AsyncTask.THREAD_POOL_EXECUTOR.execute {
+            val value = try {
+                val file = path.loadFileItem()
+                Success(file)
+            } catch (e: Exception) {
+                Failure(valueCompat.value, e)
+            }
+            postValue(value)
+        }
+    }
+}

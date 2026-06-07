@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Mumin <mumin@example.com>
+  ~ All Rights Reserved.
+  -->
+
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- app:statusBarBackground is broken when scrolling. -->
+    <me.mumin.android.files.ui.CoordinatorAppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="?actionBarTheme"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/recyclerView">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="@integer/file_list_toolbar_scroll_flags">
+
+            <me.mumin.android.files.ui.CrossfadeSubtitleToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/search_bar_background"
+                android:paddingStart="@dimen/file_list_toolbar_padding_start"
+                android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
+                app:navigationIcon="@drawable/menu_icon_control_normal_24dp"
+                app:navigationContentDescription="@string/open_navigation_drawer"
+                app:popupTheme="?actionBarPopupTheme"
+                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
+
+            <me.mumin.android.files.ui.OverlayToolbar
+                android:id="@+id/overlayToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/search_bar_background"
+                android:paddingStart="@dimen/file_list_toolbar_padding_start"
+                android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
+                android:visibility="gone"
+                app:navigationIcon="@drawable/close_icon_control_normal_24dp"
+                app:popupTheme="?actionBarPopupTheme" />
+        </FrameLayout>
+
+        <me.mumin.android.files.filelist.BreadcrumbLayout
+            android:id="@+id/breadcrumbLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/content_start_margin_minus_12dp"
+            android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
+    </me.mumin.android.files.ui.CoordinatorAppBarLayout>
+</merge>

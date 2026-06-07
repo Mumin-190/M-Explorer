@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2020 Mumin <mumin@example.com>
+  ~ All Rights Reserved.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <me.mumin.android.files.ui.CoordinatorAppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="?actionBarTheme"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/recyclerView">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/search_bar_background"
+            app:navigationIcon="@drawable/menu_icon_control_normal_24dp"
+            app:popupTheme="?actionBarPopupTheme" />
+    </me.mumin.android.files.ui.CoordinatorAppBarLayout>
+
+    <me.mumin.android.files.ui.CoordinatorScrollingFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/storage_list_empty"
+            android:textAppearance="?textAppearanceListItem"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/list_bottom_padding_with_fab"
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical" />
+
+        <!-- Additional layout to receive window insets as margin. -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/screen_edge_margin"
+                android:src="@drawable/add_icon_white_24dp"
+                android:theme="?actionBarTheme" />
+        </FrameLayout>
+    </me.mumin.android.files.ui.CoordinatorScrollingFrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

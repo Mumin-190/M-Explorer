@@ -1,0 +1,12 @@
+/*
+ * Copyright (c) 2021 Mumin <mumin@example.com>
+ * All Rights Reserved.
+ */
+
+package me.mumin.android.files.compat
+
+import android.content.pm.PermissionInfo
+import androidx.core.content.pm.PermissionInfoCompat
+
+val PermissionInfo.protectionCompat: Int
+    get() = PermissionInfoCompat.getProtection(this)

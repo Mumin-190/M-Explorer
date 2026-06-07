@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2026 Mumin-190
+  ~ All Rights Reserved.
+  -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recent_card"
+    android:layout_width="120dp"
+    android:layout_height="140dp"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="16dp"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="?colorSurfaceContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/recent_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/document_icon_white_24dp"
+            app:tint="?colorPrimary"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/recent_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="filename.ext"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/recent_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:text="0 B"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="10sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2026 Mumin-190
+  ~ All Rights Reserved.
+  -->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <me.mumin.android.files.sftpserver.SftpServerStatePreference
+        android:key="key_sftp_server_state"
+        android:disableDependentsState="true"
+        android:title="Start Server" />
+
+    <me.mumin.android.files.sftpserver.SftpServerUrlPreference
+        android:title="Server URL" />
+
+    <me.mumin.android.files.sftpserver.SftpServerAddTilePreference
+        android:title="@string/sftp_server_add_tile_title"
+        app:isPreferenceVisible="@bool/pref_visible_ftp_server_add_tile" />
+
+    <PreferenceCategory
+        android:title="Configuration"
+        android:dependency="key_sftp_server_state">
+
+        <me.mumin.android.files.settings.NonNegativeIntegerPreference
+            android:key="@string/pref_key_sftp_server_port"
+            android:title="Port"
+            android:defaultValue="@integer/pref_default_value_sftp_server_port"
+            app:useSimpleSummaryProvider="true" />
+
+        <me.mumin.android.files.settings.DefaultIfEmptyEditTextPreference
+            android:key="@string/pref_key_ftp_server_username"
+            android:title="@string/ftp_server_username_title"
+            android:defaultValue="@string/pref_default_value_ftp_server_username"
+            app:useSimpleSummaryProvider="true" />
+
+        <me.mumin.android.files.settings.PasswordPreference
+            android:key="@string/pref_key_ftp_server_password"
+            android:title="@string/ftp_server_password_title"
+            android:defaultValue="@string/pref_default_value_empty"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>
