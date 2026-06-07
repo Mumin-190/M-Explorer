@@ -4,10 +4,15 @@ An open-source Material Design file manager for Android 5.0+, built with premium
 
 ## Preview
 
-<p>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />
+<p align="center">
+  <img src="screenshots/1.png" width="32%" />
+  <img src="screenshots/2.png" width="32%" />
+  <img src="screenshots/3.png" width="32%" />
+</p>
+<p align="center">
+  <img src="screenshots/4.png" width="32%" />
+  <img src="screenshots/5.png" width="32%" />
+  <img src="screenshots/6.png" width="32%" />
 </p>
 
 ## Key Features
@@ -16,6 +21,10 @@ An open-source Material Design file manager for Android 5.0+, built with premium
   - **Home**: Dashboard displaying storage cards, connection statuses, and interactive file categories (Downloads, Images, Videos, Audio, Documents, Apps).
   - **Browse**: Intuitive exploration of your internal storage.
   - **Server**: Quick configuration and controls for sharing protocols.
+- **Built-in SFTP Server**:
+  - Securely access and transfer files between your Android device and any computer or external client using the native SFTP protocol.
+  - Easily configure custom credentials (username and password) directly from the settings menu.
+  - Quick Settings Tile integration allows starting or stopping the SFTP server with a single tap from the Android status bar.
 - **Junk Cleaner**: Built-in caching utility to scan, analyze, and clear unused app resources and temporary data in one tap.
 - **NAS & Network Support**: Integrated controls to explore and host FTP and SFTP configurations, as well as SMB and WebDAV network mounts.
 - **Modern Navigation**: Fully integrates predictive back gestures and standard Material Design transitions.
@@ -29,7 +38,3 @@ By avoiding standard parsed output methods (like standard `ls` parses) and ancie
 
 ### User Experience
 M-Explorer prioritizes clean visual structures, smooth animations, dynamic color themes (including true black night mode), and seamless gesture navigation.
-
-## License
-
-This project is licensed under the GNU General Public License v3.0. See the `LICENSE` file for details.

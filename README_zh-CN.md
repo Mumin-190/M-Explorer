@@ -4,10 +4,15 @@
 
 ## 预览
 
-<p>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />
+<p align="center">
+  <img src="screenshots/1.png" width="32%" />
+  <img src="screenshots/2.png" width="32%" />
+  <img src="screenshots/3.png" width="32%" />
+</p>
+<p align="center">
+  <img src="screenshots/4.png" width="32%" />
+  <img src="screenshots/5.png" width="32%" />
+  <img src="screenshots/6.png" width="32%" />
 </p>
 
 ## 核心特性
@@ -16,6 +21,10 @@
   - **主页**：可视化存储状态卡片、网络共享服务器入口，以及快捷分类视图（下载、图片、视频、音频、文档、应用）。
   - **浏览**：直观探索本地内部存储。
   - **服务器**：一键配置、启动与停止 FTP、SFTP 共享服务。
+- **内置 SFTP 服务器**:
+  - 利用本地 SFTP 协议，在 Android 设备与任何电脑或外部客户端之间安全地访问和传输文件。
+  - 支持直接在设置菜单中轻松配置自定义凭据（用户名和密码）。
+  - 深度集成快捷设置瓷贴（Quick Settings Tile），支持从 Android 状态栏一键快速开启或关闭 SFTP 服务器。
 - **缓存清理**: 内置一键扫描并清理临时缓存和冗余系统文件功能。
 - **网络存储支持**: 内置对 FTP、SFTP、SMB 和 WebDAV 服务器的访问及本地托管。
 - **现代化手势导航**: 原生支持 Android 预测性返回手势及 Material You 动效。
@@ -29,7 +38,3 @@ M-Explorer 抛弃了传统的 Java IO 文件操作，转而通过 C 语言 bindi
 
 ### 视觉与动效
 遵循 Material You 规范，提供可定制的主题配色（包括纯黑模式）与平滑手势响应，致力于打造一流的用户体验。
-
-## 开源协议
-
-本项目采用 GNU General Public License v3.0 开源协议。详情请查阅 `LICENSE` 文件。
