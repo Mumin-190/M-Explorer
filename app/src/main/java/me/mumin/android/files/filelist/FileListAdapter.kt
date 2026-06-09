@@ -209,6 +209,59 @@ class FileListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
         val file = getItem(position)
+        val context = holder.itemLayout.context
+
+        if (viewType == FileViewType.LIST) {
+            if (isSearching) {
+                holder.itemLayout.background = CheckableItemBackground.create(0f, 0f, context)
+                val layoutParams = holder.itemLayout.layoutParams as? ViewGroup.MarginLayoutParams
+                if (layoutParams != null) {
+                    layoutParams.setMargins(0, 0, 0, 0)
+                    holder.itemLayout.layoutParams = layoutParams
+                }
+                holder.itemDivider?.isVisible = position != itemCount - 1
+            } else {
+                val currentKey = getGroupKey(file)
+                val isFirst = position == 0 || getGroupKey(getItem(position - 1)) != currentKey
+                val isLast = position == itemCount - 1 || getGroupKey(getItem(position + 1)) != currentKey
+
+                val density = context.resources.displayMetrics.density
+                val radius = 20f * density
+                val radii = if (isFirst && isLast) {
+                    floatArrayOf(radius, radius, radius, radius, radius, radius, radius, radius)
+                } else if (isFirst) {
+                    floatArrayOf(radius, radius, radius, radius, 0f, 0f, 0f, 0f)
+                } else if (isLast) {
+                    floatArrayOf(0f, 0f, 0f, 0f, radius, radius, radius, radius)
+                } else {
+                    floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f)
+                }
+
+                val typedValue = android.util.TypedValue()
+                val theme = context.theme
+                val attrId = context.resources.getIdentifier("colorSurfaceContainer", "attr", context.packageName)
+                val hasColor = attrId != 0 && theme.resolveAttribute(attrId, typedValue, true)
+                val bgColor = if (hasColor) typedValue.data else android.graphics.Color.parseColor("#161616")
+
+                val drawable = android.graphics.drawable.GradientDrawable().apply {
+                    shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+                    color = android.content.res.ColorStateList.valueOf(bgColor)
+                    cornerRadii = radii
+                }
+                holder.itemLayout.background = drawable
+
+                val layoutParams = holder.itemLayout.layoutParams as? ViewGroup.MarginLayoutParams
+                if (layoutParams != null) {
+                    val leftRightMargin = (16 * density).toInt()
+                    val topMargin = if (isFirst) (12 * density).toInt() else 0
+                    val bottomMargin = if (isLast) (12 * density).toInt() else 0
+                    layoutParams.setMargins(leftRightMargin, topMargin, leftRightMargin, bottomMargin)
+                    holder.itemLayout.layoutParams = layoutParams
+                }
+                holder.itemDivider?.isVisible = !isLast
+            }
+        }
+
         val isDirectory = file.attributes.isDirectory
         val isEnabled = isFileSelectable(file) || isDirectory
         holder.itemLayout.isEnabled = isEnabled
@@ -251,7 +304,6 @@ class FileListAdapter(
         }
         holder.iconLayout.setOnClickListener { selectFile(file) }
         val iconRes = file.mimeType.iconRes
-        val context = holder.itemView.context
         val primaryColorStateList = context.getColorStateListByAttr(androidx.appcompat.R.attr.colorPrimary)
         holder.iconImage.apply {
             isVisible = true
@@ -393,6 +445,21 @@ class FileListAdapter(
         }
     }
 
+    private fun getGroupKey(item: FileItem): Int {
+        if (item.attributes.isDirectory) {
+            val firstChar = item.name.firstOrNull()?.uppercaseChar() ?: ' '
+            return when (firstChar) {
+                in 'A'..'D' -> 1
+                in 'E'..'L' -> 2
+                in 'M'..'R' -> 3
+                in 'S'..'Z' -> 4
+                else -> 5
+            }
+        } else {
+            return 6
+        }
+    }
+
     override fun getPopupText(view: View, position: Int): CharSequence {
         val file = getItem(position)
         return when (sortOptions.by) {
@@ -432,7 +499,8 @@ class FileListAdapter(
         val badgeImage: ImageView,
         val nameText: TextView,
         val descriptionText: TextView?,
-        val menuButton: ImageButton
+        val menuButton: ImageButton,
+        val itemDivider: View?
     ) : RecyclerView.ViewHolder(root) {
         constructor(binding: FileItemListBinding) : this(
             binding.root,
@@ -447,7 +515,8 @@ class FileListAdapter(
             binding.badgeImage,
             binding.nameText,
             binding.descriptionText,
-            binding.menuButton
+            binding.menuButton,
+            binding.itemDivider
         )
 
         constructor(binding: FileItemGridBinding) : this(
@@ -463,7 +532,8 @@ class FileListAdapter(
             binding.badgeImage,
             binding.nameText,
             null,
-            binding.menuButton
+            binding.menuButton,
+            null
         )
 
         lateinit var popupMenu: PopupMenu

@@ -45,7 +45,7 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = StorageListAdapter(this)
+        adapter = StorageListAdapter(viewLifecycleOwner, this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(

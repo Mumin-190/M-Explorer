@@ -162,6 +162,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private val viewModel by viewModels { { FileListViewModel() } }
 
+    fun resetToPath(path: Path) {
+        viewModel.stopSearching()
+        viewModel.resetTo(path)
+    }
+
     private lateinit var binding: Binding
 
     private lateinit var navigationFragment: NavigationFragment
@@ -216,6 +221,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val activity = requireActivity() as AppCompatActivity
         activity.setTitle(R.string.file_list_title)
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbar.navigationIcon = null
         binding.drawerLayout?.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         overlayActionMode = OverlayToolbarActionMode(binding.overlayToolbar)
@@ -259,19 +265,22 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
         val viewLifecycleOwner = viewLifecycleOwner
         addOnBackPressedCallback(
-            object : OnBackPressedCallback(false) {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    viewModel.navigateUp()
-                }
-            }
-                .also { callback ->
-                    viewModel.breadcrumbLiveData.observe(viewLifecycleOwner) {
-                        val isCustomCategory = args.intent.hasExtra("custom_title")
-                        val isAtStartingPath = viewModel.currentPath == argsPath
-                        callback.isEnabled = viewModel.canNavigateUpBreadcrumb && (!isCustomCategory || !isAtStartingPath)
-                        android.util.Log.d("FileListFragmentBack", "customTitle: ${args.intent.getStringExtra("custom_title")}, argsPath: $argsPath, currentPath: ${viewModel.currentPath}, isCustom: $isCustomCategory, isAtStarting: $isAtStartingPath, canNavigateUp: ${viewModel.canNavigateUpBreadcrumb}, callbackEnabled: ${callback.isEnabled}")
+                    val isCustomCategory = args.intent.hasExtra("custom_title")
+                    if (isCustomCategory) {
+                        val activity = requireActivity() as FileListActivity
+                        activity.bottomNavigation.selectedItemId = R.id.tab_home
+                        return
+                    }
+                    if (viewModel.canNavigateUpBreadcrumb) {
+                        viewModel.navigateUp()
+                    } else {
+                        val activity = requireActivity() as FileListActivity
+                        activity.bottomNavigation.selectedItemId = R.id.tab_home
                     }
                 }
+            }
         )
         addOnBackPressedCallback(overlayActionMode.onBackPressedCallback)
         addOnBackPressedCallback(SpeedDialViewOnBackPressedCallback(binding.speedDialView))
@@ -356,6 +365,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             binding.breadcrumbLayout.setData(it)
             val isCustomCategory = args.intent.hasExtra("custom_title")
             binding.breadcrumbLayout.visibility = if (viewModel.searchState.isSearching || isCustomCategory) View.GONE else View.VISIBLE
+            if (it.paths.isNotEmpty() && it.selectedIndex in it.paths.indices) {
+                binding.largeTitle.text = it.nameProducers[it.selectedIndex](requireContext())
+            }
         }
         viewModel.viewTypeLiveData.observe(viewLifecycleOwner) { onViewTypeChanged(it) }
         // Live data only calls observeForever() on its sources when it is active, so we have to
@@ -605,9 +617,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val files = stateful.value
         val isSearching = viewModel.searchState.isSearching
         when {
-            stateful is Failure -> binding.toolbar.setSubtitle(R.string.error)
-            stateful is Loading && !isSearching -> binding.toolbar.setSubtitle(R.string.loading)
-            else -> binding.toolbar.subtitle = getSubtitle(files!!)
+            stateful is Failure -> {
+                binding.toolbar.subtitle = null
+                binding.largeSubtitle.setText(R.string.error)
+            }
+            stateful is Loading && !isSearching -> {
+                binding.toolbar.subtitle = null
+                binding.largeSubtitle.setText(R.string.loading)
+            }
+            else -> {
+                binding.toolbar.subtitle = null
+                binding.largeSubtitle.text = getSubtitle(files!!)
+            }
         }
         val hasFiles = !files.isNullOrEmpty()
         binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching)
@@ -812,6 +833,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             }
         }
         requireActivity().title = title
+        binding.largeTitle.text = title
         updateSelectAllMenuItem()
         updateOverlayToolbar()
         updateBottomToolbar()
@@ -1691,7 +1713,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val bottomBarLayout: ViewGroup,
         val bottomToolbar: Toolbar,
         val bottomCreateFileNameEdit: EditText,
-        val speedDialView: SpeedDialView
+        val speedDialView: SpeedDialView,
+        val largeTitle: TextView,
+        val largeSubtitle: TextView
     ) {
         companion object {
             fun inflate(
@@ -1714,7 +1738,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
                     contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
                     bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
-                    bottomBarBinding.bottomCreateFileNameEdit, speedDialBinding.speedDialView
+                    bottomBarBinding.bottomCreateFileNameEdit, speedDialBinding.speedDialView,
+                    appBarBinding.largeTitle, appBarBinding.largeSubtitle
                 )
             }
         }

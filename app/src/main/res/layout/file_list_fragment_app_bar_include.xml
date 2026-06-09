@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- app:statusBarBackground is broken when scrolling. -->
     <me.mumin.android.files.ui.CoordinatorAppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="?colorSurface"
         android:theme="?actionBarTheme"
         app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/recyclerView">
@@ -17,17 +15,13 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="@integer/file_list_toolbar_scroll_flags">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <me.mumin.android.files.ui.CrossfadeSubtitleToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/search_bar_background"
+                android:background="@android:color/transparent"
                 android:paddingStart="@dimen/file_list_toolbar_padding_start"
                 android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
                 app:navigationIcon="@drawable/menu_icon_control_normal_24dp"
@@ -39,11 +33,7 @@
                 android:id="@+id/overlayToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/search_bar_background"
+                android:background="@android:color/transparent"
                 android:paddingStart="@dimen/file_list_toolbar_padding_start"
                 android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
                 android:visibility="gone"
@@ -51,11 +41,39 @@
                 app:popupTheme="?actionBarPopupTheme" />
         </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="8dp"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <TextView
+                android:id="@+id/largeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Internal Storage"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="32sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:id="@+id/largeSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--- folders • --- files"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
         <me.mumin.android.files.filelist.BreadcrumbLayout
             android:id="@+id/breadcrumbLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/content_start_margin_minus_12dp"
-            android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
     </me.mumin.android.files.ui.CoordinatorAppBarLayout>
 </merge>

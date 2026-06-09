@@ -24,7 +24,7 @@ class FileListActivity : AppActivity() {
 
     private var pendingPath: Path? = null
     private lateinit var backCallback: androidx.activity.OnBackPressedCallback
-    private lateinit var bottomNavigation: com.google.android.material.bottomnavigation.BottomNavigationView
+    lateinit var bottomNavigation: com.google.android.material.bottomnavigation.BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,25 +40,49 @@ class FileListActivity : AppActivity() {
         onBackPressedDispatcher.addCallback(this, backCallback)
 
         bottomNavigation.setOnItemSelectedListener { item ->
-            val fragment = when (item.itemId) {
-                R.id.tab_home -> HomeFragment()
-                R.id.tab_browse -> {
-                    val extPath = Environment.getExternalStorageDirectory().absolutePath
-                    val path = pendingPath ?: Paths.get(extPath)
-                    pendingPath = null
-                    val intent = Intent().apply {
-                        extraPath = path
-                    }
-                    FileListFragment().putArgs(FileListFragment.Args(intent))
-                }
-                R.id.tab_server -> ServerFragment()
+            // 1. Pop any category/subfolder fragments from back stack first
+            supportFragmentManager.popBackStackImmediate(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+            // 2. Hide all tab fragments and show the target one
+            val transaction = supportFragmentManager.beginTransaction()
+            val targetTag = when (item.itemId) {
+                R.id.tab_home -> "tab_home"
+                R.id.tab_browse -> "tab_browse"
+                R.id.tab_server -> "tab_server"
                 else -> return@setOnItemSelectedListener false
             }
-            backCallback.isEnabled = item.itemId != R.id.tab_home
-            supportFragmentManager.popBackStack(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            supportFragmentManager.commit {
-                replace(R.id.fragment_container, fragment)
+            
+            val allTags = listOf("tab_home", "tab_browse", "tab_server")
+            for (tag in allTags) {
+                val f = supportFragmentManager.findFragmentByTag(tag)
+                if (f != null && f.isVisible && tag != targetTag) {
+                    transaction.hide(f)
+                }
             }
+            
+            var targetFragment = supportFragmentManager.findFragmentByTag(targetTag)
+            if (targetFragment == null) {
+                targetFragment = when (item.itemId) {
+                    R.id.tab_home -> HomeFragment()
+                    R.id.tab_browse -> {
+                        val extPath = Environment.getExternalStorageDirectory().absolutePath
+                        val path = pendingPath ?: Paths.get(extPath)
+                        pendingPath = null
+                        val intent = Intent().apply {
+                            extraPath = path
+                        }
+                        FileListFragment().putArgs(FileListFragment.Args(intent))
+                    }
+                    R.id.tab_server -> ServerFragment()
+                    else -> throw IllegalStateException()
+                }
+                transaction.add(R.id.fragment_container, targetFragment, targetTag)
+            } else if (!targetFragment.isVisible) {
+                transaction.show(targetFragment)
+            }
+            
+            transaction.commit()
+            backCallback.isEnabled = item.itemId != R.id.tab_home
             true
         }
 
@@ -75,15 +99,35 @@ class FileListActivity : AppActivity() {
         }
     }
 
+    fun selectTabAndNavigate(tabId: Int, path: Path) {
+        pendingPath = path
+        val browseFragment = supportFragmentManager.findFragmentByTag("tab_browse") as? FileListFragment
+        if (browseFragment != null) {
+            browseFragment.resetToPath(path)
+        }
+        bottomNavigation.selectedItemId = tabId
+    }
+
     fun navigateToPath(path: Path, intent: Intent = Intent()) {
         val launchIntent = Intent(intent).apply {
             extraPath = path
         }
         val fragment = FileListFragment().putArgs(FileListFragment.Args(launchIntent))
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, fragment)
-            addToBackStack(null)
+        
+        // Hide the current active tab fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        val tags = listOf("tab_home", "tab_browse", "tab_server")
+        for (tag in tags) {
+            val f = supportFragmentManager.findFragmentByTag(tag)
+            if (f != null && f.isVisible) {
+                transaction.hide(f)
+            }
         }
+        
+        // Add the new FileListFragment on top and add to back stack
+        transaction.add(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onKeyShortcut(keyCode: Int, event: KeyEvent): Boolean {

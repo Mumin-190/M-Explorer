@@ -15,6 +15,15 @@ import me.mumin.android.files.ftpserver.FtpServerActivity
 import me.mumin.android.files.ftpserver.FtpServerService
 import me.mumin.android.files.ftpserver.FtpServerUrl
 import me.mumin.android.files.util.valueCompat
+import me.mumin.android.files.storage.AddStorageDialogActivity
+import me.mumin.android.files.storage.AddLanSmbServerActivity
+import me.mumin.android.files.storage.EditSftpServerActivity
+import me.mumin.android.files.storage.EditSftpServerFragment
+import me.mumin.android.files.storage.EditFtpServerActivity
+import me.mumin.android.files.storage.EditFtpServerFragment
+import me.mumin.android.files.util.createIntent
+import me.mumin.android.files.util.putArgs
+import me.mumin.android.files.util.startActivitySafe
 
 class ServerFragment : Fragment() {
     private lateinit var binding: ServerFragmentBinding
@@ -33,6 +42,7 @@ class ServerFragment : Fragment() {
 
         setupFtpServer()
         setupSftpServer()
+        setupQuickActions()
     }
 
     private fun setupFtpServer() {
@@ -142,6 +152,24 @@ class ServerFragment : Fragment() {
         // Settings button
         binding.sftpSettingsButton.setOnClickListener {
             startActivity(Intent(requireContext(), SftpServerActivity::class.java))
+        }
+    }
+
+    private fun setupQuickActions() {
+        binding.actionAddServer.setOnClickListener {
+            startActivitySafe(AddStorageDialogActivity::class.createIntent())
+        }
+        binding.actionScanNetwork.setOnClickListener {
+            startActivitySafe(AddLanSmbServerActivity::class.createIntent())
+        }
+        binding.actionSshConnection.setOnClickListener {
+            startActivitySafe(EditSftpServerActivity::class.createIntent().putArgs(EditSftpServerFragment.Args()))
+        }
+        binding.actionSmbConnection.setOnClickListener {
+            startActivitySafe(AddLanSmbServerActivity::class.createIntent())
+        }
+        binding.actionFtpConnection.setOnClickListener {
+            startActivitySafe(EditFtpServerActivity::class.createIntent().putArgs(EditFtpServerFragment.Args()))
         }
     }
 

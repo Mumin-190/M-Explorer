@@ -15,6 +15,11 @@ import me.mumin.android.files.file.MimeType
 import me.mumin.android.files.file.asMimeTypeOrNull
 import me.mumin.android.files.file.icon
 import me.mumin.android.files.file.asFileSize
+import me.mumin.android.files.file.isApk
+import me.mumin.android.files.file.isImage
+import me.mumin.android.files.file.isPdf
+import me.mumin.android.files.file.isVideo
+import coil.load
 
 data class RecentFile(
     val id: Long,
@@ -34,6 +39,7 @@ class RecentFilesAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val card: View = view.findViewById(R.id.recent_card)
         val icon: ImageView = view.findViewById(R.id.recent_icon)
+        val thumbnail: ImageView = view.findViewById(R.id.recent_thumbnail)
         val name: TextView = view.findViewById(R.id.recent_name)
         val size: TextView = view.findViewById(R.id.recent_size)
     }
@@ -49,10 +55,34 @@ class RecentFilesAdapter(
         holder.size.text = file.size.asFileSize().formatHumanReadable(context)
 
         val mimeType = getMimeTypeFromPath(file.path)
-        try {
-            holder.icon.setImageResource(mimeType.icon.resourceId)
-        } catch (e: Exception) {
-            holder.icon.setImageResource(R.drawable.document_icon_white_24dp)
+        val supportsThumbnail = mimeType.isImage || mimeType.isVideo || mimeType.isApk || mimeType.isPdf
+
+        if (supportsThumbnail) {
+            holder.thumbnail.visibility = View.VISIBLE
+            holder.icon.visibility = View.GONE
+            holder.thumbnail.load(file.uri) {
+                placeholder(mimeType.icon.resourceId)
+                error(mimeType.icon.resourceId)
+                listener(
+                    onError = { _, _ ->
+                        holder.thumbnail.visibility = View.GONE
+                        holder.icon.visibility = View.VISIBLE
+                        try {
+                            holder.icon.setImageResource(mimeType.icon.resourceId)
+                        } catch (e: Exception) {
+                            holder.icon.setImageResource(R.drawable.document_icon_white_24dp)
+                        }
+                    }
+                )
+            }
+        } else {
+            holder.thumbnail.visibility = View.GONE
+            holder.icon.visibility = View.VISIBLE
+            try {
+                holder.icon.setImageResource(mimeType.icon.resourceId)
+            } catch (e: Exception) {
+                holder.icon.setImageResource(R.drawable.document_icon_white_24dp)
+            }
         }
 
         holder.card.setOnClickListener {

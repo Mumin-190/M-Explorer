@@ -113,10 +113,6 @@ object Settings {
             ThemeStyle::class.java
         )
 
-    val MATERIAL_DESIGN_3: SettingLiveData<Boolean> =
-        BooleanSettingLiveData(
-            R.string.pref_key_material_design_3, R.bool.pref_default_value_material_design_3
-        )
 
     val NIGHT_MODE: SettingLiveData<NightMode> =
         EnumSettingLiveData(

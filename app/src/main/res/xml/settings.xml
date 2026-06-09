@@ -16,10 +16,7 @@
             android:defaultValue="@string/pref_default_value_theme_color"
             android:summary="@string/settings_theme_color_summary" />
 
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_material_design_3"
-            android:title="@string/settings_material_design_3_title"
-            android:defaultValue="@bool/pref_default_value_material_design_3" />
+
 
         <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_material3_theme_style"
@@ -67,13 +64,7 @@
             android:title="@string/settings_storages_title"
             android:summary="@string/settings_storages_summary_empty" />
 
-        <me.mumin.android.files.settings.StandardDirectoriesPreference
-            android:title="@string/settings_standard_directories_title"
-            android:summary="@string/settings_standard_directories_summary_empty" />
 
-        <me.mumin.android.files.settings.BookmarkDirectoriesPreference
-            android:title="@string/settings_bookmark_directories_title"
-            android:summary="@string/settings_bookmark_directories_summary_empty" />
 
         <me.mumin.android.files.settings.RootStrategyPreference
             android:key="@string/pref_key_root_strategy"

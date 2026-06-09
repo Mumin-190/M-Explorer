@@ -36,22 +36,36 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             try {
                 if (rikka.shizuku.Shizuku.pingBinder()) {
                     if (rikka.shizuku.Shizuku.checkSelfPermission() == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                        android.widget.Toast.makeText(requireContext(), "Shizuku permission is already granted", android.widget.Toast.LENGTH_SHORT).show()
+                        Settings.ROOT_STRATEGY.putValue(me.mumin.android.files.provider.root.RootStrategy.ALWAYS)
+                        android.widget.Toast.makeText(requireContext(), "Shizuku permission is already granted. Root access enabled.", android.widget.Toast.LENGTH_SHORT).show()
                     } else {
+                        val listener = object : rikka.shizuku.Shizuku.OnRequestPermissionResultListener {
+                            override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
+                                rikka.shizuku.Shizuku.removeRequestPermissionResultListener(this)
+                                if (grantResult == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                                    Settings.ROOT_STRATEGY.putValue(me.mumin.android.files.provider.root.RootStrategy.ALWAYS)
+                                    android.widget.Toast.makeText(requireContext(), "Shizuku authorization succeeded. Root access enabled.", android.widget.Toast.LENGTH_SHORT).show()
+                                } else {
+                                    android.widget.Toast.makeText(requireContext(), "Shizuku permission denied by user", android.widget.Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                        rikka.shizuku.Shizuku.addRequestPermissionResultListener(listener)
                         rikka.shizuku.Shizuku.requestPermission(1001)
                     }
                 } else {
-                    android.widget.Toast.makeText(requireContext(), "Shizuku is not running", android.widget.Toast.LENGTH_SHORT).show()
+                    android.widget.Toast.makeText(requireContext(), "Shizuku service is not running. Please start the Shizuku app first.", android.widget.Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Throwable) {
                 e.printStackTrace()
-                android.widget.Toast.makeText(requireContext(), "Error checking Shizuku: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(requireContext(), "Error checking Shizuku: ${e.localizedMessage ?: e.message}", android.widget.Toast.LENGTH_SHORT).show()
             }
+        } else {
+            android.widget.Toast.makeText(requireContext(), "Shizuku requires Android 6.0+", android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 
     private var initialThemeColor: ThemeColor? = null
-    private var initialMaterialDesign3: Boolean? = null
     private var initialNightMode: NightMode? = null
     private var initialBlackNightMode: Boolean? = null
     private var initialMaterial3ThemeStyle: ThemeStyle? = null
@@ -61,13 +75,11 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
         val viewLifecycleOwner = viewLifecycleOwner
         initialThemeColor = Settings.THEME_COLOR.valueCompat
-        initialMaterialDesign3 = Settings.MATERIAL_DESIGN_3.valueCompat
         initialNightMode = Settings.NIGHT_MODE.valueCompat
         initialBlackNightMode = Settings.BLACK_NIGHT_MODE.valueCompat
         initialMaterial3ThemeStyle = Settings.MATERIAL3_THEME_STYLE.valueCompat
 
         Settings.THEME_COLOR.observe(viewLifecycleOwner, this::onThemeColorChanged)
-        Settings.MATERIAL_DESIGN_3.observe(viewLifecycleOwner, this::onMaterialDesign3Changed)
         Settings.NIGHT_MODE.observe(viewLifecycleOwner, this::onNightModeChanged)
         Settings.BLACK_NIGHT_MODE.observe(viewLifecycleOwner, this::onBlackNightModeChanged)
         Settings.MATERIAL3_THEME_STYLE.observe(viewLifecycleOwner, this::onMaterial3ThemeStyleChanged)
@@ -75,14 +87,13 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     }
 
     private fun updatePreferenceDependencies() {
-        val isM3 = Settings.MATERIAL_DESIGN_3.valueCompat
         val themeStyle = Settings.MATERIAL3_THEME_STYLE.valueCompat
 
         val m3StylePref = findPreference<androidx.preference.Preference>(getString(R.string.pref_key_material3_theme_style))
         val themeColorPref = findPreference<androidx.preference.Preference>(getString(R.string.pref_key_theme_color))
 
-        m3StylePref?.isEnabled = isM3
-        themeColorPref?.isEnabled = !isM3 || (isM3 && themeStyle == ThemeStyle.CUSTOM)
+        m3StylePref?.isEnabled = true
+        themeColorPref?.isEnabled = themeStyle == ThemeStyle.CUSTOM
     }
 
     private fun onThemeColorChanged(themeColor: ThemeColor) {
@@ -91,14 +102,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             CustomThemeHelper.sync(true)
         }
         initialThemeColor = themeColor
-    }
-
-    private fun onMaterialDesign3Changed(isMaterialDesign3: Boolean) {
-        updatePreferenceDependencies()
-        if (initialMaterialDesign3 != null && initialMaterialDesign3 != isMaterialDesign3) {
-            CustomThemeHelper.sync(true)
-        }
-        initialMaterialDesign3 = isMaterialDesign3
     }
 
     private fun onMaterial3ThemeStyleChanged(themeStyle: ThemeStyle) {

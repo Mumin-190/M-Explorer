@@ -30,26 +30,24 @@ abstract class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         CustomThemeHelper.apply(this)
 
-        if (Settings.MATERIAL_DESIGN_3.valueCompat) {
-            val themeStyle = Settings.MATERIAL3_THEME_STYLE.valueCompat
-            when (themeStyle) {
-                ThemeStyle.DYNAMIC -> {
-                    DynamicColors.applyToActivityIfAvailable(this)
-                }
-                ThemeStyle.MONOCHROME -> {
-                    val options = DynamicColorsOptions.Builder()
-                        .setContentBasedSource(Color.GRAY)
-                        .build()
-                    DynamicColors.applyToActivityIfAvailable(this, options)
-                }
-                ThemeStyle.CUSTOM -> {
-                    val themeColor = Settings.THEME_COLOR.valueCompat
-                    val colorInt = getColorCompat(themeColor.resourceId)
-                    val options = DynamicColorsOptions.Builder()
-                        .setContentBasedSource(colorInt)
-                        .build()
-                    DynamicColors.applyToActivityIfAvailable(this, options)
-                }
+        val themeStyle = Settings.MATERIAL3_THEME_STYLE.valueCompat
+        when (themeStyle) {
+            ThemeStyle.DYNAMIC -> {
+                DynamicColors.applyToActivityIfAvailable(this)
+            }
+            ThemeStyle.MONOCHROME -> {
+                val options = DynamicColorsOptions.Builder()
+                    .setContentBasedSource(Color.GRAY)
+                    .build()
+                DynamicColors.applyToActivityIfAvailable(this, options)
+            }
+            ThemeStyle.CUSTOM -> {
+                val themeColor = Settings.THEME_COLOR.valueCompat
+                val colorInt = getColorCompat(themeColor.resourceId)
+                val options = DynamicColorsOptions.Builder()
+                    .setContentBasedSource(colorInt)
+                    .build()
+                DynamicColors.applyToActivityIfAvailable(this, options)
             }
         }
 

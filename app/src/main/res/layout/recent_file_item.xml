@@ -2,48 +2,66 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recent_card"
-    android:layout_width="120dp"
-    android:layout_height="140dp"
+    android:layout_width="130dp"
+    android:layout_height="150dp"
     android:layout_margin="6dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="20dp"
     app:strokeWidth="0dp"
     app:cardBackgroundColor="?colorSurfaceContainer">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/recent_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/document_icon_white_24dp"
-            app:tint="?colorPrimary"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/recent_name"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="2"
-            android:text="filename.ext"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:layout_height="90dp"
+            android:background="#0A000000">
 
-        <TextView
-            android:id="@+id/recent_size"
+            <ImageView
+                android:id="@+id/recent_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/recent_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/document_icon_white_24dp"
+                app:tint="?colorPrimary" />
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="2dp"
-            android:text="0 B"
-            android:textColor="?android:textColorSecondary"
-            android:textSize="10sp" />
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/recent_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="filename.ext"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recent_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="0 B"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="10sp" />
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

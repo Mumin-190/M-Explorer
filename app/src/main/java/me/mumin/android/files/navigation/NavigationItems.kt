@@ -44,16 +44,6 @@ val navigationItems: List<NavigationItem?>
                 addAll(storageVolumeItems)
             }
             add(AddStorageItem())
-            val standardDirectoryItems = standardDirectoryItems
-            if (standardDirectoryItems.isNotEmpty()) {
-                add(null)
-                addAll(standardDirectoryItems)
-            }
-            val bookmarkDirectoryItems = bookmarkDirectoryItems
-            if (bookmarkDirectoryItems.isNotEmpty()) {
-                add(null)
-                addAll(bookmarkDirectoryItems)
-            }
             add(null)
             addAll(menuItems)
         }
