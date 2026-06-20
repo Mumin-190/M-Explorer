@@ -14,7 +14,15 @@ M-Explorer is a modern, high-performance, and feature-rich file manager for Andr
 
 ## Screenshots
 
-> *Add screenshots here (e.g., Home Tab, Browse Tab, Server Connections, Pitch Dark Mode).*
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="screenshots/Screenshot_20260620-160703.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160715.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160717.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160720.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160732.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160733.png" width="24%" />
+  <img src="screenshots/Screenshot_20260620-160738.png" width="24%" />
+</div>
 
 ## Installation
 
