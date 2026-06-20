@@ -58,18 +58,4 @@ M-Explorer is designed to isolate your credentials from other apps. Remote serve
 - SMB and WebDAV implementations are currently experimental and may not support all legacy network topologies.
 - Shizuku requires an active pairing state on unrooted devices (via Wireless Debugging or ADB).
 
-## Build Instructions
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/M-Explorer.git
-   ```
-2. Open the project in Android Studio.
-3. Build the project using Gradle:
-   ```bash
-   ./gradlew assembleDebug
-   ```
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
