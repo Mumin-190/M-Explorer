@@ -19,6 +19,7 @@ import java.io.Closeable
 
 // TODO: Use SavedStateHandle to save state.
 class FileListViewModel : ViewModel() {
+    var customTitle: String? = null
     private val trailLiveData = TrailLiveData()
     val hasTrail: Boolean
         get() = trailLiveData.value != null
@@ -69,6 +70,10 @@ class FileListViewModel : ViewModel() {
             path.archiveRefresh()
         }
         _fileListLiveData.reload()
+    }
+
+    fun loadMore() {
+        _fileListLiveData.loadMore()
     }
 
     val searchViewExpandedLiveData = MutableLiveData(false)
@@ -236,7 +241,7 @@ class FileListViewModel : ViewModel() {
         private val _pasteStateLiveData = MutableLiveData(PasteState())
     }
 
-    private class FileListSwitchMapLiveData(
+    private inner class FileListSwitchMapLiveData(
         private val pathLiveData: LiveData<Path>,
         private val searchStateLiveData: LiveData<SearchState>
     ) : MediatorLiveData<Stateful<List<FileItem>>>(), Closeable {
@@ -254,7 +259,9 @@ class FileListViewModel : ViewModel() {
             }
             val path = pathLiveData.valueCompat
             val searchState = searchStateLiveData.valueCompat
-            val liveData = if (searchState.isSearching) {
+            val liveData = if (customTitle in listOf("Images", "Videos", "Audio", "Documents", "Downloads", "APKs")) {
+                MediaStoreCategoryLiveData(customTitle!!)
+            } else if (searchState.isSearching) {
                 SearchFileListLiveData(path, searchState.query)
             } else {
                 FileListLiveData(path)
@@ -267,6 +274,14 @@ class FileListViewModel : ViewModel() {
             when (val liveData = liveData) {
                 is FileListLiveData -> liveData.loadValue()
                 is SearchFileListLiveData -> liveData.loadValue()
+                is MediaStoreCategoryLiveData -> liveData.loadValue()
+            }
+        }
+
+        fun loadMore() {
+            val liveData = liveData
+            if (liveData is MediaStoreCategoryLiveData) {
+                liveData.loadMore()
             }
         }
 

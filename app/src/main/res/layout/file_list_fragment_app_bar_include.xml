@@ -24,8 +24,6 @@
                 android:background="@android:color/transparent"
                 android:paddingStart="@dimen/file_list_toolbar_padding_start"
                 android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
-                app:navigationIcon="@drawable/menu_icon_control_normal_24dp"
-                app:navigationContentDescription="@string/open_navigation_drawer"
                 app:popupTheme="?actionBarPopupTheme"
                 app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
@@ -33,7 +31,7 @@
                 android:id="@+id/overlayToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="@android:color/transparent"
+                android:background="?colorSurface"
                 android:paddingStart="@dimen/file_list_toolbar_padding_start"
                 android:paddingEnd="@dimen/file_list_toolbar_padding_end_with_overflow"
                 android:visibility="gone"

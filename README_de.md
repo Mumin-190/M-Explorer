@@ -25,7 +25,6 @@ Ein Open-Source-Dateimanager im Material Design für Android 5.0+, entwickelt mi
   - Sicherer Zugriff und Dateitransfer zwischen Ihrem Android-Gerät und jedem Computer oder externen Client über das native SFTP-Protokoll.
   - Einfache Konfiguration eigener Anmeldedaten (Benutzername und Passwort) direkt im Einstellungsmenü.
   - Integration einer Kachel in die Schnelleinstellungen (Quick Settings Tile), um den SFTP-Server mit einem Fingertipp direkt aus der Android-Statusleiste zu starten oder zu stoppen.
-- **Datenmüll-Bereinigung (Junk Cleaner)**: Integriertes Dienstprogramm zum Scannen, Analysieren und Löschen nicht genutzter App-Ressourcen und temporärer Cache-Dateien mit nur einem Fingertipp.
 - **NAS- & Netzwerkunterstützung**: Integrierte Steuerung zum Durchsuchen und Hosten von FTP- und SFTP-Konfigurationen sowie SMB- und WebDAV-Netzwerkfreigaben.
 - **Moderne Navigation**: Vollständige Integration der vorausschauenden Zurück-Geste (Predictive Back Gesture) und standardmäßiger Material Design-Übergänge.
 - **Linux-optimierte Engine**: Systemnahe Dateioperationen durch direkte Bindungen an Linux-Systemaufrufe (Syscalls) mit Unterstützung für symbolische Links, Dateiberechtigungen und SELinux-Kontexte.

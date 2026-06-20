@@ -122,11 +122,21 @@ object WalkFileTreeSearchable {
             visitor.visitFileFailed(start, e)
             return start
         }
+        val startRequiresRoot = if (start is me.mumin.android.files.provider.root.RootablePath) {
+            start.isRootRequired(false) || start.isRootRequired(true)
+        } else false
+
         val directories = mutableListOf<Path>()
         directoryStream.use {
             visitor.preVisitDirectory(start, attributes)
             try {
                 for (path in directoryStream) {
+                    if (!startRequiresRoot && path is me.mumin.android.files.provider.root.RootablePath) {
+                        if (path.isRootRequired(false) || path.isRootRequired(true)) {
+                            continue
+                        }
+                    }
+
                     val attributes = try {
                         path.readAttributes(BasicFileAttributes::class.java)
                     } catch (ignored: IOException) {
@@ -160,6 +170,11 @@ object WalkFileTreeSearchable {
                     ): FileVisitResult {
                         if (directory == path) {
                             return FileVisitResult.CONTINUE
+                        }
+                        if (!startRequiresRoot && directory is me.mumin.android.files.provider.root.RootablePath) {
+                            if (directory.isRootRequired(false) || directory.isRootRequired(true)) {
+                                return FileVisitResult.SKIP_SUBTREE
+                            }
                         }
                         return visitor.preVisitDirectory(directory, attributes)
                     }

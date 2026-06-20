@@ -358,56 +358,55 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
         }
 
         binding.storageInternal.setOnClickListener {
-            navigateTo(Paths.get(extPath))
+            navigateToRoot(Paths.get(extPath))
         }
 
         // Root Storage
-        val storagesList = Settings.STORAGES.valueCompat
-        val rootStorage = storagesList.find { it is me.mumin.android.files.storage.FileSystemRoot }
-        val isRootEnabled = rootStorage?.isVisible == true
-        if (isRootEnabled) {
-            binding.storageRoot.visibility = View.VISIBLE
-            val accessible = isRootAccessible()
-            if (accessible) {
-                binding.storageRootTitle.text = "Root"
-                try {
-                    val rootPath = "/"
-                    val total = JavaFile.getTotalSpace(rootPath).let { 
-                        if (it > 0) it else {
-                            val systemPath = Environment.getRootDirectory().path
-                            JavaFile.getTotalSpace(systemPath)
+        Settings.ENABLE_ROOT_ACCESS.observe(viewLifecycleOwner) { isRootEnabled ->
+            if (isRootEnabled) {
+                binding.storageRoot.visibility = View.VISIBLE
+                val accessible = isRootAccessible()
+                if (accessible) {
+                    binding.storageRootTitle.text = "Root"
+                    try {
+                        val rootPath = "/"
+                        val total = JavaFile.getTotalSpace(rootPath).let { 
+                            if (it > 0) it else {
+                                val systemPath = Environment.getRootDirectory().path
+                                JavaFile.getTotalSpace(systemPath)
+                            }
                         }
-                    }
-                    val free = JavaFile.getFreeSpace(rootPath).let { 
-                        if (it > 0) it else {
-                            val systemPath = Environment.getRootDirectory().path
-                            JavaFile.getFreeSpace(systemPath)
+                        val free = JavaFile.getFreeSpace(rootPath).let { 
+                            if (it > 0) it else {
+                                val systemPath = Environment.getRootDirectory().path
+                                JavaFile.getFreeSpace(systemPath)
+                            }
                         }
-                    }
-                    val used = total - free
-                    val pct = if (total > 0) (used * 100 / total).toInt() else 0
+                        val used = total - free
+                        val pct = if (total > 0) (used * 100 / total).toInt() else 0
 
-                    binding.storageRootProgress.progress = pct
-                    binding.storageRootProgress.visibility = View.VISIBLE
-                    binding.storageRootSpace.text = "${used.asFileSize().formatHumanReadable(context)} used of ${total.asFileSize().formatHumanReadable(context)}"
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    binding.storageRootSpace.text = "Root storage details unavailable"
+                        binding.storageRootProgress.progress = pct
+                        binding.storageRootProgress.visibility = View.VISIBLE
+                        binding.storageRootSpace.text = "${used.asFileSize().formatHumanReadable(requireContext())} used of ${total.asFileSize().formatHumanReadable(requireContext())}"
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        binding.storageRootSpace.text = "Root storage details unavailable"
+                    }
+                } else {
+                    binding.storageRootTitle.text = "Root (Unavailable)"
+                    binding.storageRootSpace.text = "Shizuku service is not running or permission is not granted"
+                    binding.storageRootProgress.visibility = View.GONE
+                }
+                binding.storageRoot.setOnClickListener {
+                    if (isRootAccessible()) {
+                        navigateToRoot(Paths.get("/"))
+                    } else {
+                        requestShizukuPermission()
+                    }
                 }
             } else {
-                binding.storageRootTitle.text = "Root (Unavailable)"
-                binding.storageRootSpace.text = "Shizuku service is not running or permission is not granted"
-                binding.storageRootProgress.visibility = View.GONE
+                binding.storageRoot.visibility = View.GONE
             }
-            binding.storageRoot.setOnClickListener {
-                if (isRootAccessible()) {
-                    navigateTo(Paths.get("/"))
-                } else {
-                    requestShizukuPermission()
-                }
-            }
-        } else {
-            binding.storageRoot.visibility = View.GONE
         }
 
         // Dynamically listen to custom storage devices (only when added)
@@ -553,7 +552,7 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
                     }
                     val path = storage.path
                     if (path != null) {
-                        navigateTo(path)
+                        navigateToRoot(path)
                     } else {
                         val intent = storage.createIntent()
                         if (intent != null) {
@@ -579,7 +578,7 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
                 itemBinding.root.setOnClickListener {
                     val path = storage.path
                     if (path != null) {
-                        navigateTo(path)
+                        navigateToRoot(path)
                     } else {
                         val intent = storage.createIntent()
                         if (intent != null) {
@@ -817,7 +816,7 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
 
     override fun navigateToRoot(path: Path) {
         val activity = requireActivity() as FileListActivity
-        activity.selectTabAndNavigate(R.id.tab_browse, path)
+        activity.navigateToPath(path)
     }
 
     override fun navigateToDefaultRoot() {
@@ -891,6 +890,7 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
             try {
                 if (rikka.shizuku.Shizuku.pingBinder()) {
                     if (rikka.shizuku.Shizuku.checkSelfPermission() == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                        Settings.ROOT_STRATEGY.putValue(me.mumin.android.files.provider.root.RootStrategy.ALWAYS)
                         android.widget.Toast.makeText(requireContext(), "Shizuku permission already granted", android.widget.Toast.LENGTH_SHORT).show()
                         setupStorages() // Refresh space and title
                     } else {
@@ -898,6 +898,7 @@ class HomeFragment : Fragment(), NavigationFragment.Listener {
                             override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
                                 rikka.shizuku.Shizuku.removeRequestPermissionResultListener(this)
                                 if (grantResult == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                                    Settings.ROOT_STRATEGY.putValue(me.mumin.android.files.provider.root.RootStrategy.ALWAYS)
                                     android.widget.Toast.makeText(requireContext(), "Shizuku permission granted", android.widget.Toast.LENGTH_SHORT).show()
                                     setupStorages() // Refresh space and title
                                 } else {

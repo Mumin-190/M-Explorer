@@ -9,9 +9,7 @@ import me.mumin.android.files.provider.FileSystemProviders
 import me.mumin.android.files.provider.remote.RemoteFileService
 import me.mumin.android.files.provider.remote.RemoteInterface
 import me.mumin.android.files.util.lazyReflectedMethod
-
-val isRunningAsRoot = Process.myUid() == 0
-
+val isRunningAsRoot = Process.myUid() == 0 || Process.myUid() == 2000
 @SuppressLint("StaticFieldLeak")
 lateinit var rootContext: Context private set
 

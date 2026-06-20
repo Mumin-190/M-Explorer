@@ -162,6 +162,12 @@ object Settings {
             RootStrategy::class.java
         )
 
+    val ENABLE_ROOT_ACCESS: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_enable_root_access,
+            R.bool.pref_default_value_enable_root_access
+        )
+
     val ARCHIVE_FILE_NAME_ENCODING: SettingLiveData<String> =
         StringSettingLiveData(
             R.string.pref_key_archive_file_name_encoding,

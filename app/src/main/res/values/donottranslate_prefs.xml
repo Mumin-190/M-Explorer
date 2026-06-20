@@ -4,8 +4,9 @@
 
     <string name="pref_default_value_empty" />
 
-    <string name="pref_key_storages">key_storages</string>
-    <string name="pref_key_file_list_default_directory">key_file_list_default_directory</string>
+    <string name="pref_key_storages">storages</string>
+    <string name="pref_key_file_list_default_directory">file_list_default_directory</string>
+    <string name="pref_key_enable_root_access">enable_root_access</string>
     <string name="pref_key_file_list_persistent_drawer_open">key_file_list_persistent_drawer_open</string>
     <bool name="pref_default_value_file_list_persistent_drawer_open">true</bool>
     <string name="pref_key_file_list_show_hidden_files">key_file_list_show_hidden_files</string>
@@ -60,7 +61,7 @@
     <string name="pref_key_standard_directory_settings">key_standard_directories</string>
     <string name="pref_key_bookmark_directories">key_bookmark_directories</string>
     <string name="pref_key_root_strategy">key_root_strategy</string>
-    <string name="pref_default_value_root_strategy">1</string>
+    <string name="pref_default_value_root_strategy">0</string>
     <string-array name="pref_entry_values_root_strategy">
         <item>0</item>
         <item>1</item>
@@ -80,6 +81,7 @@
     <bool name="pref_visible_show_pdf_thumbnail_pre_28">true</bool>
     <string name="pref_key_read_remote_files_for_thumbnail">key_read_remote_files_for_thumbnail</string>
     <bool name="pref_default_value_read_remote_files_for_thumbnail">true</bool>
+    <bool name="pref_default_value_enable_root_access">false</bool>
 
     <string name="pref_key_material3_theme_style">key_material3_theme_style</string>
     <string name="pref_default_value_material3_theme_style">0</string>

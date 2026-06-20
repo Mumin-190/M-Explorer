@@ -10,7 +10,7 @@ interface RootablePath {
 }
 
 private val rootStrategy: RootStrategy
-    get() = if (isRunningAsRoot) RootStrategy.NEVER else Settings.ROOT_STRATEGY.valueCompat
+    get() = if (isRunningAsRoot) RootStrategy.NEVER else if (Settings.ENABLE_ROOT_ACCESS.valueCompat) RootStrategy.ALWAYS else RootStrategy.NEVER
 
 @Throws(IOException::class)
 fun <T, R> callRootable(
@@ -24,11 +24,11 @@ fun <T, R> callRootable(
         RootStrategy.NEVER -> localObject.block()
         RootStrategy.AUTOMATIC ->
             if (path.isRootRequired(isAttributeAccess)) {
-                rootObject.block()
+                checkShizukuAndRun(rootObject, block)
             } else {
                 localObject.block()
             }
-        RootStrategy.ALWAYS -> rootObject.block()
+        RootStrategy.ALWAYS -> checkShizukuAndRun(rootObject, block)
     }
 }
 
@@ -49,11 +49,26 @@ fun <T, R> callRootable(
         RootStrategy.AUTOMATIC ->
             if (path1.isRootRequired(isAttributeAccess)
                 || path2.isRootRequired(isAttributeAccess)) {
-                rootObject.block()
+                checkShizukuAndRun(rootObject, block)
             } else {
                 localObject.block()
             }
         RootStrategy.ALWAYS ->
-            rootObject.block()
+            checkShizukuAndRun(rootObject, block)
     }
+}
+
+@Throws(IOException::class)
+private fun <T, R> checkShizukuAndRun(rootObject: T, block: T.() -> R): R {
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        try {
+            val hasShizuku = rikka.shizuku.Shizuku.checkSelfPermission() == android.content.pm.PackageManager.PERMISSION_GRANTED
+            if (hasShizuku && !rikka.shizuku.Shizuku.pingBinder() && !rikka.sui.Sui.isSui()) {
+                throw IOException("Shizuku service is not alive")
+            }
+        } catch (e: Throwable) {
+            // Ignore if Shizuku is not installed or initialized
+        }
+    }
+    return rootObject.block()
 }

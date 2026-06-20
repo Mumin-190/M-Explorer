@@ -232,7 +232,7 @@ object Client {
             }
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
-            val sshClient = SSHClient().apply { addHostKeyVerifier(PromiscuousVerifier()) }
+            val sshClient = SSHClient().apply { addHostKeyVerifier(TofuHostKeyVerifier(SftpSecurity.encryptedPreferences)) }
             try {
                 sshClient.connect(authority.host, authority.port)
             } catch (e: IOException) {

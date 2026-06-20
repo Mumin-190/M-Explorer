@@ -40,23 +40,44 @@ class FileListActivity : AppActivity() {
         onBackPressedDispatcher.addCallback(this, backCallback)
 
         bottomNavigation.setOnItemSelectedListener { item ->
-            // 1. Pop any category/subfolder fragments from back stack first
-            supportFragmentManager.popBackStackImmediate(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-            // 2. Hide all tab fragments and show the target one
-            val transaction = supportFragmentManager.beginTransaction()
+            val currentTabId = bottomNavigation.selectedItemId
             val targetTag = when (item.itemId) {
                 R.id.tab_home -> "tab_home"
                 R.id.tab_browse -> "tab_browse"
                 R.id.tab_server -> "tab_server"
                 else -> return@setOnItemSelectedListener false
             }
+
+            val targetBase = supportFragmentManager.findFragmentByTag(targetTag)
+            if (currentTabId == item.itemId && targetBase != null) {
+                supportFragmentManager.popBackStack(targetTag, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                return@setOnItemSelectedListener true
+            }
+
+            val currentTag = when (currentTabId) {
+                R.id.tab_home -> "tab_home"
+                R.id.tab_browse -> "tab_browse"
+                R.id.tab_server -> "tab_server"
+                else -> ""
+            }
+
+            if (currentTag.isNotEmpty() && currentTag != targetTag) {
+                val currentBase = supportFragmentManager.findFragmentByTag(currentTag)
+                if (currentBase != null) {
+                    supportFragmentManager.saveBackStack(currentTag)
+                }
+            }
+
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setReorderingAllowed(true)
             
             val allTags = listOf("tab_home", "tab_browse", "tab_server")
             for (tag in allTags) {
-                val f = supportFragmentManager.findFragmentByTag(tag)
-                if (f != null && f.isVisible && tag != targetTag) {
-                    transaction.hide(f)
+                if (tag != targetTag) {
+                    val f = supportFragmentManager.findFragmentByTag(tag)
+                    if (f != null) {
+                        transaction.hide(f)
+                    }
                 }
             }
             
@@ -82,6 +103,9 @@ class FileListActivity : AppActivity() {
             }
             
             transaction.commit()
+            
+            supportFragmentManager.restoreBackStack(targetTag)
+
             backCallback.isEnabled = item.itemId != R.id.tab_home
             true
         }
@@ -114,19 +138,23 @@ class FileListActivity : AppActivity() {
         }
         val fragment = FileListFragment().putArgs(FileListFragment.Args(launchIntent))
         
-        // Hide the current active tab fragment
         val transaction = supportFragmentManager.beginTransaction()
-        val tags = listOf("tab_home", "tab_browse", "tab_server")
-        for (tag in tags) {
-            val f = supportFragmentManager.findFragmentByTag(tag)
-            if (f != null && f.isVisible) {
-                transaction.hide(f)
-            }
+        transaction.setReorderingAllowed(true)
+
+        val currentTabId = bottomNavigation.selectedItemId
+        val currentTag = when (currentTabId) {
+            R.id.tab_home -> "tab_home"
+            R.id.tab_browse -> "tab_browse"
+            R.id.tab_server -> "tab_server"
+            else -> ""
         }
         
-        // Add the new FileListFragment on top and add to back stack
         transaction.add(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
+        if (currentTag.isNotEmpty()) {
+            transaction.addToBackStack(currentTag)
+        } else {
+            transaction.addToBackStack(null)
+        }
         transaction.commit()
     }
 

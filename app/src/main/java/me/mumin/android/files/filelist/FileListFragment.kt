@@ -42,6 +42,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.Path
@@ -194,8 +195,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -220,8 +219,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         navigationFragment.listener = this
         val activity = requireActivity() as AppCompatActivity
         activity.setTitle(R.string.file_list_title)
-        activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        
+        binding.toolbar.title = null
+        menuBinding = MenuBinding.inflate(binding.toolbar.menu, activity.menuInflater)
+        menuBinding.viewSortItem.subMenu!!.setGroupDividerEnabledCompat(true)
+        setUpSearchView()
+        
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            onOptionsItemSelected(item)
+        }
         binding.toolbar.navigationIcon = null
         binding.drawerLayout?.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         overlayActionMode = OverlayToolbarActionMode(binding.overlayToolbar)
@@ -288,6 +294,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             addOnBackPressedCallback(DrawerLayoutOnBackPressedCallback(it))
         }
 
+        val customTitle = args.intent.getStringExtra("custom_title")
+        viewModel.customTitle = customTitle
+        
         if (!viewModel.hasTrail) {
             var path = argsPath
             val intent = args.intent
@@ -386,6 +395,20 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.selectedFilesLiveData.observe(viewLifecycleOwner) { onSelectedFilesChanged(it) }
         viewModel.pasteStateLiveData.observe(viewLifecycleOwner) { onPasteStateChanged(it) }
         Settings.FILE_NAME_ELLIPSIZE.observe(viewLifecycleOwner) { onFileNameEllipsizeChanged(it) }
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+
+                    if (visibleItemCount + pastVisibleItems >= totalItemCount - 20) {
+                        viewModel.loadMore()
+                    }
+                }
+            }
+        })
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { onFileListChanged(it) }
         Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner) {
             onShowHiddenFilesChanged(it)
@@ -403,13 +426,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        menuBinding = MenuBinding.inflate(menu, inflater)
-        menuBinding.viewSortItem.subMenu!!.setGroupDividerEnabledCompat(true)
-        setUpSearchView()
-    }
+    // Removed onCreateOptionsMenu
 
     private fun setUpSearchView() {
         val searchView = menuBinding.searchItem.actionView as FixQueryChangeSearchView
@@ -461,14 +478,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             menuBinding.searchItem.collapseActionView()
         }
     }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-
-        updateViewSortMenuItems()
-        updateSelectAllMenuItem()
-        updateShowHiddenFilesMenuItem()
-    }
+    // Removed onPrepareOptionsMenu
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -722,23 +732,27 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (searchViewExpanded) {
             return
         }
-        val viewType = viewModel.viewType
-        val checkedViewTypeItem = when (viewType) {
-            FileViewType.LIST -> menuBinding.viewListItem
-            FileViewType.GRID -> menuBinding.viewGridItem
+        val viewType = viewModel.viewTypeLiveData.value
+        if (viewType != null) {
+            val checkedViewTypeItem = when (viewType) {
+                FileViewType.LIST -> menuBinding.viewListItem
+                FileViewType.GRID -> menuBinding.viewGridItem
+            }
+            checkedViewTypeItem.isChecked = true
         }
-        checkedViewTypeItem.isChecked = true
-        val sortOptions = viewModel.sortOptions
-        val checkedSortByItem = when (sortOptions.by) {
-            By.NAME -> menuBinding.sortByNameItem
-            By.TYPE -> menuBinding.sortByTypeItem
-            By.SIZE -> menuBinding.sortBySizeItem
-            By.LAST_MODIFIED -> menuBinding.sortByLastModifiedItem
+        val sortOptions = viewModel.sortOptionsLiveData.value
+        if (sortOptions != null) {
+            val checkedSortByItem = when (sortOptions.by) {
+                By.NAME -> menuBinding.sortByNameItem
+                By.TYPE -> menuBinding.sortByTypeItem
+                By.SIZE -> menuBinding.sortBySizeItem
+                By.LAST_MODIFIED -> menuBinding.sortByLastModifiedItem
+            }
+            checkedSortByItem.isChecked = true
+            menuBinding.sortOrderAscendingItem.isChecked = sortOptions.order == Order.ASCENDING
+            menuBinding.sortDirectoriesFirstItem.isChecked = sortOptions.isDirectoriesFirst
         }
-        checkedSortByItem.isChecked = true
-        menuBinding.sortOrderAscendingItem.isChecked = sortOptions.order == Order.ASCENDING
-        menuBinding.sortDirectoriesFirstItem.isChecked = sortOptions.isDirectoriesFirst
-        menuBinding.viewSortPathSpecificItem.isChecked = viewModel.isViewSortPathSpecific
+        menuBinding.viewSortPathSpecificItem.isChecked = viewModel.viewSortPathSpecificLiveData.value ?: false
     }
 
     private fun navigateUp() {

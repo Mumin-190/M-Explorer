@@ -309,7 +309,7 @@ class EditSftpServerFragment : Fragment() {
         val authentication = when (authenticationType) {
             AuthenticationType.PASSWORD -> {
                 val password = binding.passwordEdit.text.toString()
-                PasswordAuthentication(password)
+                PasswordAuthentication.createNew(password)
             }
             AuthenticationType.PUBLIC_KEY -> {
                 val privateKey = binding.privateKeyEdit.text.toString().takeIfNotEmpty()
@@ -343,7 +343,7 @@ class EditSftpServerFragment : Fragment() {
                     }
                 }
                 if (errorEdit == null) {
-                    PublicKeyAuthentication(privateKey!!, privateKeyPassword)
+                    PublicKeyAuthentication.createNew(privateKey!!, privateKeyPassword)
                 } else {
                     null
                 }

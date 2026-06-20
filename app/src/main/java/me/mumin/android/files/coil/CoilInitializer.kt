@@ -11,6 +11,17 @@ import me.mumin.android.files.app.application
 fun initializeCoil() {
     Coil.setImageLoader(
         ImageLoader.Builder(application)
+            .memoryCache {
+                coil.memory.MemoryCache.Builder(application)
+                    .maxSizePercent(0.15) // Limit to 15% of available RAM
+                    .build()
+            }
+            .diskCache {
+                coil.disk.DiskCache.Builder()
+                    .directory(application.cacheDir.resolve("image_cache"))
+                    .maxSizePercent(0.02) // Limit to 2% of free disk space
+                    .build()
+            }
             .components {
                 add(AppIconApplicationInfoKeyer())
                 add(AppIconApplicationInfoFetcherFactory(application))
